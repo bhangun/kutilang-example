@@ -1,4 +1,4 @@
-// 
+//
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,26 +28,41 @@ import 'utils/config.dart';
 import 'pages/splash.dart';
 import 'utils/routes.dart';
 
+var _blocProvider = <BlocProvider>[
+  BlocProvider(
+    create: (_) => ThemeCubit(),
+  ),
+    BlocProvider(
+      create: (_) => AppBloc(),
+    ),
+];
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
- 
-  /* SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ]).then((_) { */
-    ModulesRegistry();
-    Bloc.observer = KutBlocObserver();
-    runApp(KutilangApp());
-  //});
+  ModulesRegistry();
+  Bloc.observer = KutBlocObserver();
+
+  /*  _blocProvider =[BlocProvider(
+    create: (_) => ThemeCubit(),
+  ),
+    BlocProvider<AppBloc>(
+      create: (_) => AppBloc(),
+    ),
+  ]; */
+
+
+  runApp(KutilangApp());
 }
 
 class KutilangApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(
+    create: (_) => ThemeCubit(),
+  ),
+    BlocProvider<AppBloc>(
+      create: (_) => AppBloc(),
+    ),],//ModulesRegistry.providers(),
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) {
           return MaterialApp(
@@ -57,18 +72,18 @@ class KutilangApp extends StatelessWidget {
             navigatorKey: NavigationServices.navigatorKey,
             debugShowCheckedModeBanner: false,
             locale: Locale('en', "EN"),
-            home: BlocProvider(
+            home: SplashScreen(),
+            /*  home: BlocProvider(
               create: (_) => AppBloc(),
               child: SplashScreen(),
-            ),
+            ), */
             localizationsDelegates: [S.delegate],
             supportedLocales: S.delegate.supportedLocales,
-            localeResolutionCallback:
-            S.delegate.resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
+            localeResolutionCallback: S.delegate
+                .resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
           );
         },
       ),
     );
   }
 }
-

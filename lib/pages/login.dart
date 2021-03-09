@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kutilang_example/bloc/app/app_bloc.dart';
 import 'package:kutilang_example/bloc/authentication/authentication_bloc.dart';
 import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
+import 'package:kutilang_example/utils/theme_cubit.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 // import 'package:kutilang_example/generated/i18n.dart';
 
@@ -67,11 +69,18 @@ class _Loginpagestate extends State<LoginScreen> {
     return Scaffold(
       primary: true,
       appBar: EmptyAppBar(),
-      body: _buildBody(),
+      body: BlocBuilder<AppBloc, int>(
+        builder: (_, count) {
+          return  _buildBody(context);
+        },
+      )
+      
+      
+     
     );
   }
 
-  Material _buildBody() {
+  Material _buildBody(BuildContext context) {
     return Material(
         child: MobileLayout(
       rightChild: Column(
@@ -89,6 +98,13 @@ class _Loginpagestate extends State<LoginScreen> {
           _buildPasswordField(),
           _buildForgotPasswordButton(),
           _buildSignInButton(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              child: const Icon(Icons.brightness_6),
+              onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+            ),
+          ),
         ],
       ),
       leftChild: SizedBox.expand(

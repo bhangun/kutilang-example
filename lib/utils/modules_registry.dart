@@ -1,5 +1,6 @@
 
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/modules/register_modules.dart';
 
 import 'modules.dart';
@@ -14,6 +15,8 @@ class ModulesRegistry {
   ModulesRegistry._(){
     _registry();
   }
+ 
+  static final _blocProvider = <BlocProvider<Bloc<Object?, Object?>>>[];
 
   _registry(){
     registerModules().forEach((m){
@@ -22,9 +25,17 @@ class ModulesRegistry {
           Modules.addPages(p);
         });
 
+        print(m.providers());
+
+
+       // _blocProvider.add(m.providers());
         m.routes();
         m.services();
     });
+  }
+
+  static providers(){
+    return _blocProvider;
   }
 }
 

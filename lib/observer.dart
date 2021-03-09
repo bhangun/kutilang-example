@@ -28,6 +28,7 @@ if (Platform.isAndroid) {
   @override
   void onTransition(Bloc bloc, Transition transition) {
     print(transition);
+    // Transition { currentState: ThemeData#e0c60, event: null, nextState: ThemeData#62398 }
     super.onTransition(bloc, transition);
   }
 

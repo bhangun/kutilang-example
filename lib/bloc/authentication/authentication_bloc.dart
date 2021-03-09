@@ -132,8 +132,11 @@ class AuthenticationStore{
   }
 
   void _loggedin(value){
+    
     try{
+      NavigationServices.navigateTo(AppsRoutes.home);
       if (value){
+        print(value);
         // FLog.info(text: "Success login!");
         NavigationServices.navigateTo(AppsRoutes.home);
         loggedIn = true;

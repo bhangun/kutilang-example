@@ -53,7 +53,7 @@ class AuthServices {
           .then((d) => _saveToken(d), onError: (e) => {print(e.toString())});
       if (await AppStorage.fetch(AUTH_TOKEN) != null) {
         result = true;
-       // FLog.info(text: "Token saved!");
+        // FLog.info(text: "Token saved!");
       }
     } catch (e) {
       // FLog.error(text: DioErrorUtil.handleError(e));
@@ -62,7 +62,7 @@ class AuthServices {
   }
 
   static void logout() {
-     AppStorage.delete(AUTH_TOKEN);
+    AppStorage.delete(AUTH_TOKEN);
   }
 
   static bool _saveToken(token) {
@@ -75,22 +75,23 @@ class AuthServices {
   }
 
   static changePassword(String currentPassword, String newPassword) async {
-    var body = '{"currentPassword": "$currentPassword","newPassword": "$newPassword"}';
+    var body =
+        '{"currentPassword": "$currentPassword","newPassword": "$newPassword"}';
     await RestServices.post(_API_ACCOUNT_CHANGE_PASSWORD, body);
   }
 
-  static authorities() async{
+  static authorities() async {
     return await RestServices.fetch(_API_USERS_AUTHORITIES);
   }
 
   static activate(String key) async {
-    var body=" ?key=";
-     await RestServices.post(_API_ACTIVATE+"?key="+key, body);
+    var body = " ?key=";
+    await RestServices.post(_API_ACTIVATE + "?key=" + key, body);
   }
 
   static resetPasswordFinish(String key, String newPassword) async {
-     var body = '{"key": "$key","newPassword": "$newPassword"}';
-     await RestServices.post(_API_ACCOUNT_RESET_FINISH, body);
+    var body = '{"key": "$key","newPassword": "$newPassword"}';
+    await RestServices.post(_API_ACCOUNT_RESET_FINISH, body);
   }
 
   static resetPasswordInit(String email) async {
@@ -103,7 +104,8 @@ class AuthServices {
     return user;
   }
 
-  static register(String login, String email, String password, String langkey) async{
+  static register(
+      String login, String email, String password, String langkey) async {
     var body = '{ $login, $email, $password, $langkey }';
     await RestServices.post(_API_REGISTER, body);
   }
