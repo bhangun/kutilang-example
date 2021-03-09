@@ -1,0 +1,36 @@
+
+curl -X POST "http://localhost:9000/api/authenticate" 
+    -H "accept: */*" -H "Content-Type: application/json" 
+    -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxNTM2ODc3MH0.IsenPstkV-xa7M_4mpmFe_8-JV-sIFfJBo0qGZrFtN1DorWOiCrME4Qm8W49pz7lpEFnIS-LcXfClUvujmfmKw" 
+    -d "{ \"password\": \"bhangun\", \"rememberMe\": true, \"username\": \"bhangun\"}"
+ 
+curl -X POST "http://localhost:9000/api/authenticate" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"password\": \"bhangun\", \"rememberMe\": true, \"username\": \"bhangun\"}"
+
+curl -X POST "http://localhost:8080/api/authenticate" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"password\": \"bhangun\", \"rememberMe\": true, \"username\": \"bhangun\"}"
+
+curl -X POST "http://192.168.100.41:8080/api/authenticate" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"password\": \"bhangun\", \"rememberMe\": true, \"username\": \"bhangun\"}"
+
+
+ Request URL
+http://localhost:9000/api/authenticate
+
+{
+  "id_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaGFuZ3VuIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxNzg3NDQxNH0.FgBd42d5mYaY0fBwkDBEPkwOzM6yCI5cNgg3elLNBCy76a_F0kdAS6O7SdoJkrtgkQyBAA3OE6eJNPJw0Ldt-Q"
+}
+
+ authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiaGFuZ3VuIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxNzg3NDQxNH0.FgBd42d5mYaY0fBwkDBEPkwOzM6yCI5cNgg3elLNBCy76a_F0kdAS6O7SdoJkrtgkQyBAA3OE6eJNPJw0Ldt-Q 
+ cache-control: no-cacheno-storemax-age=0must-revalidate 
+ connection: close 
+ content-security-policy: default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: 
+ content-type: application/json 
+ date: Tue09 Mar 2021 09:33:34 GMT 
+ expires: 0 
+ feature-policy: geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; fullscreen 'self'; payment 'none' 
+ pragma: no-cache 
+ referrer-policy: strict-origin-when-cross-origin 
+ transfer-encoding: Identity 
+ vary: OriginAccess-Control-Request-MethodAccess-Control-Request-Headers 
+ x-content-type-options: nosniff 
+ x-frame-options: DENY 
+ x-powered-by: Express 
+ x-xss-protection: 1; mode=block

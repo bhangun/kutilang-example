@@ -163,7 +163,7 @@ class AuthenticationStore{
     loading = true;
     success = false;
     loggedIn = false;
-    //AuthServices.login(username, password, rememberMe).then((v)=>_loggedin(v));
+    AuthServices.login(username, password, rememberMe).then((v)=>_loggedin(v));
   }
 
   

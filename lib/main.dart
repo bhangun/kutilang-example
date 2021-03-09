@@ -18,6 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/app/app_bloc.dart';
 //
+import 'generated/i18n.dart';
 import 'observer.dart';
 import 'services/navigation.dart';
 import 'utils/modules_registry.dart';
@@ -55,11 +56,15 @@ class KutilangApp extends StatelessWidget {
             routes: AppRoutes.routes,
             navigatorKey: NavigationServices.navigatorKey,
             debugShowCheckedModeBanner: false,
-            // locale: Locale(_appBloc.locale, "en"),
+            locale: Locale('en', "EN"),
             home: BlocProvider(
               create: (_) => AppBloc(),
               child: SplashScreen(),
             ),
+            localizationsDelegates: [S.delegate],
+            supportedLocales: S.delegate.supportedLocales,
+            localeResolutionCallback:
+            S.delegate.resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
           );
         },
       ),

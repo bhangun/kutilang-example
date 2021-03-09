@@ -33,7 +33,9 @@ dependencies:
 
   sembast: ^3.0.0+2 
 
-  #dio: ^3.0.10
+  dio: ^4.0.0-beta6
+
+  intl: ^0.17.0
 
   cryptography: ^2.0.1
 
@@ -57,6 +59,8 @@ dependencies:
 
   logging_appenders: ^1.0.0
 
+  json_annotation: ^4.0.0
+
   another_flushbar: ^1.10.13
 
   flutter_slidable: ^0.6.0-nullsafety.0
@@ -64,9 +68,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
- # flutter_driver:
- #   sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  #flutter_driver:
+  #  sdk: flutter
   test: any 
+  build_runner: ^1.11.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

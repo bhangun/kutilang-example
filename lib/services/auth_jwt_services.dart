@@ -40,7 +40,7 @@ class AuthServices {
 // GET getAuthorities
   static const _API_USERS_AUTHORITIES = "users/authorities";
 
-  /* static Future<bool> login(String _username, String _password,
+  static Future<bool> login(String _username, String _password,
       [bool _rememberMe = false]) async {
     var body = jsonEncode({
       "username": _username,
@@ -117,5 +117,5 @@ class AuthServices {
   Future<User> userProfile() async {
     String profile = await prefs(_PROFILE);
     return User.fromJson(json.decode(profile));
-  } */
+  }
 }

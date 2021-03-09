@@ -6,7 +6,7 @@ class AppStorage {
   static final String baseName = 'default';
 
   BiometricStorageFile? _authStorage;
-  BiometricStorageFile? _storage;
+  static BiometricStorageFile? _storage;
   BiometricStorageFile? _customPrompt;
   BiometricStorageFile? _noConfirmation;
 
@@ -55,15 +55,33 @@ class AppStorage {
             confirmationRequired: false,
           ));
     }
+
+   // _storage.
   }
 
   // Read value
-  static Future<BiometricStorageFile> fetch(String key) async {
-    return await BiometricStorage().getStorage('${baseName}_authenticated',
-        options:
-            StorageFileInitOptions(authenticationValidityDurationSeconds: 30));
+  static Future<String?> fetch(String key) async {
+    _storage = await _getStorage(key);
+    return await _storage!.read();
   }
-  // return  await _storage.read(key: key) ?? '';
+   // Write value 
+  static put(String key, String value) async{
+     _storage = await _getStorage(key);
+    return await _storage!.write(value);//'{key:$key, value:$value}');
+  }
+
+  static Future<BiometricStorageFile> _getStorage(String key) async{
+    return await BiometricStorage().getStorage('${key}_store',
+            options: StorageFileInitOptions(
+              authenticationRequired: false,
+            ));
+  }
+
+   // Delete value 
+  static void delete(String key) async{
+     _storage = await _getStorage(key);
+    return await _storage!.delete();
+  }
 
 /* 
   // Read all values
@@ -71,19 +89,12 @@ class AppStorage {
     return await _storage.readAll();
   }
 
-  // Delete value 
-  static void delete(String key) async{
-    await _storage.delete(key: key);
-  }
+ 
 
   // Delete all 
   static deleteAll() async{
     await _storage.deleteAll();
-  }
-
-  // Write value 
-  static put(String key, String value) async{
-    
-    await _storage.write(key: key, value: value);
   } */
+
+ 
 }

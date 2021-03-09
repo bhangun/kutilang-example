@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kutilang_example/bloc/app/app_bloc.dart';
 import 'package:kutilang_example/bloc/authentication/authentication_bloc.dart';
+import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -102,7 +103,7 @@ class _Loginpagestate extends State<LoginScreen> {
 
   Widget _buildUserIdField() => TextFieldWidget(
         //key: Key('user_id'),
-        // hint: S.of(context).email,
+        hint: S.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
         iconColor: Colors.black54,
@@ -116,7 +117,7 @@ class _Loginpagestate extends State<LoginScreen> {
 
   Widget _buildPasswordField() => TextFieldWidget(
         //key: Key('user_password'),
-        // hint: S.of(context).password,
+        hint: S.of(context)!.password,
         isObscure: true,
         padding: EdgeInsets.only(top: 16.0),
         icon: Icons.lock,
@@ -131,8 +132,8 @@ class _Loginpagestate extends State<LoginScreen> {
       child: TextButton(
           key: Key('user_forgot_password'),
          // padding: EdgeInsets.all(0.0),
-          child: Text(""
-              //  S.of(_context).forgot_password,
+          child: Text(
+              S.of(_context)!.forgot_password,
               /* style: Theme.of(_context)
                 .textTheme
                 .caption
@@ -145,6 +146,7 @@ class _Loginpagestate extends State<LoginScreen> {
       //buttonText: S.of(_context).sign_in,
      // buttonColor: Theme.of(context).buttonColor,
       // textColor: Theme.of(context).textTheme.button.color,
-      onPressed: () => {Navigator.of(context).pushReplacementNamed(AppsRoutes.home)}, 
-      child: Text('Sign In'),);//_authBloc.login());
+      //Navigator.of(context).pushReplacementNamed(AppsRoutes.home)
+      onPressed: () => {_authBloc.login()}, 
+      child: Text(S.of(_context)!.sign_in),);//);
 }

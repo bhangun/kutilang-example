@@ -3,7 +3,8 @@ const APP_NAME ='Kutilang App';
 
 // Caution! use your host IP instead of LOCALHOST
 // because it not recognize on emulator
-const BASE_URL = 'http://192.168.100.129:8080/';
+//const BASE_URL = 'http://192.168.100.41:8080/';
+const BASE_URL = 'http://localhost:8080/';
 const API = BASE_URL+'api/';
 
 // Role

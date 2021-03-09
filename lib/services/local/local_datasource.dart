@@ -22,7 +22,7 @@ class AppDataSource {
 
   // Singleton accessor
   static AppDataSource get instance => _singleton;
-
+/* 
   // DB functions:--------------------------------------------------------------
   static Future<int> insert(AppData appData) async {
     return await _appsStore.add(await _db, appData.toMap());
@@ -102,7 +102,7 @@ class AppDataSource {
       appData.id = snapshot.key;
       return appData;
     }).toList();
-  }
+  } */
 }
 
 
