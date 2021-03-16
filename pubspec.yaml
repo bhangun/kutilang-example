@@ -41,6 +41,8 @@ dependencies:
 
   encrypt: ^5.0.0-beta.1
 
+  connectivity: ^3.0.2
+
   # xxtea: ^2.0.3
 
   jwt_decoder: ^2.0.0

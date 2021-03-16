@@ -12,4 +12,3 @@ class NavigationServices {
     return navigatorKey.currentState!.pop(true);
   }
 }
-
