@@ -37,7 +37,7 @@ class _KutBotomBarState extends State<KutBotomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: BottomNavigationBar(
+       child: Text('')/* BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -55,7 +55,7 @@ class _KutBotomBarState extends State<KutBotomBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
-      ),
+      ), */
     );
   }
 }

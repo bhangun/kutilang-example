@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kutilang_example/bloc/app/app_bloc.dart';
-import 'package:kutilang_example/bloc/authentication/authentication_bloc.dart';
+
+// import 'package:kutilang_example/bloc/authentication/authentication_bloc.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
+
 import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
-import 'package:kutilang_example/utils/theme_cubit.dart';
+import 'package:kutilang_example/bloc/theme_cubit.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 // import 'package:kutilang_example/generated/i18n.dart';
 
@@ -35,22 +39,22 @@ class _Loginpagestate extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   //store
-  final _authBloc = AuthenticationStore();
+  //final _authBloc = AuthenticationBloc();
 
   @override
   void initState() {
     super.initState();
-    _authBloc.gotoHome();
+    // _authBloc.gotoHome();
 
     _passwordFocusNode = FocusNode();
 
     _userEmailController.addListener(() {
       //this will be called whenever user types in some value
-      _authBloc.setUserId(_userEmailController.text);
+      context.read<AuthenticationBloc>().setUserId(_userEmailController.text);
     });
     _passwordController.addListener(() {
       //this will be called whenever user types in some value
-      _authBloc.setPassword(_passwordController.text);
+      context.read<AuthenticationBloc>().setPassword(_passwordController.text);
     });
   }
 
@@ -67,17 +71,13 @@ class _Loginpagestate extends State<LoginScreen> {
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
-      primary: true,
-      appBar: EmptyAppBar(),
-      body: BlocBuilder<AppBloc, int>(
-        builder: (_, count) {
-          return  _buildBody(context);
-        },
-      )
-      
-      
-     
-    );
+        primary: true,
+        appBar: EmptyAppBar(),
+        body: BlocBuilder<AppBloc, int>(
+          builder: (_, count) {
+            return _buildBody(context);
+          },
+        ));
   }
 
   Material _buildBody(BuildContext context) {
@@ -128,7 +128,7 @@ class _Loginpagestate extends State<LoginScreen> {
         onFieldSubmitted: (value) {
           FocusScope.of(context).requestFocus(_passwordFocusNode);
         },
-        errorText: _authBloc.userMessage,
+        errorText: context.read<AuthenticationBloc>().userMessage,
       );
 
   Widget _buildPasswordField() => TextFieldWidget(
@@ -140,29 +140,24 @@ class _Loginpagestate extends State<LoginScreen> {
         iconColor: Colors.black54,
         textController: _passwordController,
         focusNode: _passwordFocusNode,
-        errorText: _authBloc.passwordMessage,
+        errorText: context.read<AuthenticationBloc>().passwordMessage,
       );
 
   Widget _buildForgotPasswordButton() => Align(
       alignment: FractionalOffset.centerRight,
       child: TextButton(
           key: Key('user_forgot_password'),
-         // padding: EdgeInsets.all(0.0),
+          // padding: EdgeInsets.all(0.0),
           child: Text(
-              S.of(_context)!.forgot_password,
-              /* style: Theme.of(_context)
-                .textTheme
-                .caption
-                .copyWith(color: Colors.orangeAccent), */
-              ),
-          onPressed: () => _authBloc.forgotPassword()));
+            S.of(_context)!.forgot_password,
+          ),
+          onPressed: () =>
+              context.read<AuthenticationBloc>().forgotPassword()));
 
   Widget _buildSignInButton() => ElevatedButton(
-      //key: Key('user_sign_button'),
-      //buttonText: S.of(_context).sign_in,
-     // buttonColor: Theme.of(context).buttonColor,
-      // textColor: Theme.of(context).textTheme.button.color,
-      //Navigator.of(context).pushReplacementNamed(AppsRoutes.home)
-      onPressed: () => {_authBloc.login()}, 
-      child: Text(S.of(_context)!.sign_in),);//);
+        //key: Key('user_sign_button'),
+        onPressed: ()=>
+            context.read<AuthenticationBloc>().add(LoginButtonPressed()),//.login(), //{_authBloc.login()},
+        child: Text(S.of(_context)!.sign_in),
+      ); //);
 }

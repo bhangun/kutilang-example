@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/app/app_bloc.dart';
 import 'package:kutilang_example/models/module.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
-import 'package:kutilang_example/utils/theme_cubit.dart';
+import 'package:kutilang_example/bloc/theme_cubit.dart';
 
 import '../utils/routes.dart';
 import 'account/services/user_routes.dart';

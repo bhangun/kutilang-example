@@ -9,6 +9,10 @@ import 'package:kutilang_example/services/local/local_storage.dart';
 import '../utils/config.dart';
 
 class SplashScreen extends StatefulWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => SplashScreen());
+  }
+
   @override
   State<StatefulWidget> createState() => _Splashpagestate();
 }
@@ -17,7 +21,7 @@ class _Splashpagestate extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    // startTimer();
   }
 
   @override
@@ -27,7 +31,7 @@ class _Splashpagestate extends State<SplashScreen> {
     );
   }
 
-  startTimer() {
+  /* startTimer() {
     var _duration = Duration(milliseconds: 300);
     return Timer(_duration, navigate);
   }
@@ -39,5 +43,5 @@ class _Splashpagestate extends State<SplashScreen> {
     
       Navigator.of(context).pushReplacementNamed(AppsRoutes.login);
     
-  }
+  } */
 }

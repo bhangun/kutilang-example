@@ -78,6 +78,8 @@ class User extends Equatable{
 
   static String listUserToJson(List<User> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
 
+static const empty = null;
+
   @override
   List<Object> get props => throw UnimplementedError();
 }

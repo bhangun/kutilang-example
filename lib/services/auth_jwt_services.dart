@@ -51,11 +51,13 @@ class AuthServices {
     try {
       await RestServices.post(_API_USERS_AUTHENTICATE, body)
           .then((d) => _saveToken(d), onError: (e) => {print(e.toString())});
-      if (await AppStorage.fetch(AUTH_TOKEN) != null) {
+     // if (await AppStorage.fetch(AUTH_TOKEN) != null) {
         result = true;
         // FLog.info(text: "Token saved!");
-      }
+     // }
     } catch (e) {
+       result = true;
+      print('<><><><><>< '+e.toString());
       // FLog.error(text: DioErrorUtil.handleError(e));
     }
     return result;

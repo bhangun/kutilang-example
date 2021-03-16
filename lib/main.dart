@@ -13,43 +13,27 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
+import 'package:kutilang_example/pages/home.dart';
+import 'package:kutilang_example/pages/login.dart';
 
 import 'bloc/app/app_bloc.dart';
-//
+import 'bloc/auth_bloc/auth_bloc.dart';
 import 'generated/i18n.dart';
 import 'observer.dart';
 import 'services/navigation.dart';
 import 'utils/modules_registry.dart';
-import 'utils/theme_cubit.dart';
+import 'bloc/theme_cubit.dart';
 import 'utils/config.dart';
 
 import 'pages/splash.dart';
 import 'utils/routes.dart';
 
-var _blocProvider = <BlocProvider>[
-  BlocProvider(
-    create: (_) => ThemeCubit(),
-  ),
-    BlocProvider(
-      create: (_) => AppBloc(),
-    ),
-];
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   ModulesRegistry();
   Bloc.observer = KutBlocObserver();
-
-  /*  _blocProvider =[BlocProvider(
-    create: (_) => ThemeCubit(),
-  ),
-    BlocProvider<AppBloc>(
-      create: (_) => AppBloc(),
-    ),
-  ]; */
-
-
   runApp(KutilangApp());
 }
 
@@ -57,33 +41,69 @@ class KutilangApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(
-    create: (_) => ThemeCubit(),
-  ),
-    BlocProvider<AppBloc>(
-      create: (_) => AppBloc(),
-    ),],//ModulesRegistry.providers(),
+      providers: [
+        BlocProvider(
+          create: (_) => ThemeCubit(),
+        ),
+        BlocProvider<AppBloc>(
+          create: (_) => AppBloc(),
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (_) => AuthenticationBloc(AuthenticationState.unauthenticated()),
+        ),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) {
           return MaterialApp(
-            key: Key('kutilangapp'),
-            theme: theme,
-            routes: AppRoutes.routes,
-            navigatorKey: NavigationServices.navigatorKey,
-            debugShowCheckedModeBanner: false,
-            locale: Locale('en', "EN"),
-            home: SplashScreen(),
-            /*  home: BlocProvider(
-              create: (_) => AppBloc(),
-              child: SplashScreen(),
-            ), */
-            localizationsDelegates: [S.delegate],
-            supportedLocales: S.delegate.supportedLocales,
-            localeResolutionCallback: S.delegate
-                .resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
-          );
-        },
-      ),
+              key: Key('kutilangapp'),
+              theme: theme,
+              routes: AppRoutes.routes,
+              navigatorKey: NavigationServices.navigatorKey,
+              debugShowCheckedModeBanner: false,
+              locale: Locale('en', "EN"),
+              localizationsDelegates: [S.delegate],
+              supportedLocales: S.delegate.supportedLocales,
+              localeResolutionCallback: S.delegate
+                  .resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
+              // onGenerateRoute: (_) => SplashScreen.route(),
+              //home: HomeScreen(),
+              /*  builder: (context, child) {
+                switch (context.read<AuthenticationBloc>().processingLogin()) {
+                    case AuthStatus.authenticated:
+                     return HomeScreen();
+                    case AuthStatus.unauthenticated:
+                      return LoginScreen();
+                    default:
+                      return SplashScreen();
+                  }
+                    }
+          ); */
+              builder: (context, child) {
+                return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    builder: (context, state) {
+
+                    print('????????????????????????????? '+state.status.toString());
+                       switch (state.status) {
+                    case AuthStatus.authenticated:
+                     return HomeScreen();
+                    case AuthStatus.unauthenticated:
+                      return LoginScreen();
+                    default:
+                      return SplashScreen();
+                  }
+                  /* switch (state.status) {
+                    case AuthStatus.authenticated:
+                      //context.read<AuthenticationBloc>().processingLogin();
+                      break;
+                    case AuthStatus.unauthenticated:
+                      break;
+                    default:
+                      break;
+                  } */
+                });
+              }
+      );
+      })
     );
   }
 }
