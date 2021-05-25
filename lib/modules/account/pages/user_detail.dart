@@ -9,8 +9,7 @@ class UserDetail extends StatefulWidget {
 }
 
 class _UserDetailState extends State<UserDetail> {
-  //User data;
-  final _userBloc = UserStore();
+
 
   @override
   Widget build(BuildContext context) {

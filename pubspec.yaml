@@ -1,10 +1,6 @@
 name: kutilang_example
 description: A new Flutter project.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -29,39 +25,44 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # State management using blutter_bloc
+  flutter_bloc: ^7.0.0
+  bloc: ^7.0.0
+
+  # Utils
   equatable: ^2.0.0
 
+  # Local database
   sembast: ^3.0.0+2 
 
+  # Encryption
+  xxtea: ^2.1.0
+
+  # REST connection
   dio: ^4.0.0
 
   intl: ^0.17.0
 
-  cryptography: ^2.0.1
-
-  encrypt: ^5.0.0-beta.1
-
+  # Network connection
   connectivity: ^3.0.2
 
-  # xxtea: ^2.0.3
-
-  jwt_decoder: ^2.0.1
-
-  path_provider: ^2.0.1
-
-  flutter_svg: ^0.21.0-nullsafety.0
-
-  bloc: ^7.0.0-nullsafety.3
-
-  flutter_bloc: ^7.0.0-nullsafety.3
-
-  responsive_builder: ^0.4.0-nullsafety.1
+  # Logging
+  f_logs: ^2.0.0
 
   biometric_storage: ^2.0.1
 
-  logging: ^1.0.0
+  # JWT decoder
+  jwt_decoder: ^2.0.1
 
-  logging_appenders: ^1.0.0
+
+  cached_network_image: ^3.0.0
+
+
+  path_provider: ^2.0.1
+
+  flutter_svg: ^0.22.0
+
+  responsive_builder: ^0.4.1
 
   json_annotation: ^4.0.0
 
@@ -77,9 +78,13 @@ dev_dependencies:
   flutter_localizations:
     sdk: flutter
   test: any 
-  build_runner: ^1.12.1
-  build:
-  source_gen:
+  build_runner: ^2.0.4
+  build: ^2.0.1
+
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
