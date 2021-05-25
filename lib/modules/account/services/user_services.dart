@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:logging/logging.dart';
+
 import '../../../services/network/rest_services.dart';
 import '../models/user_model.dart';
 
 class UserServices {
+  static final log = Logger('UserServices');
   // GET getAllUsers
   // POST createUser
   // PUT updateUser
@@ -24,7 +27,7 @@ class UserServices {
     return exp.stringMatch(login);
      // if () return login;
     }catch(e){
-      print('>>>>>>>>>>>>>>>>> '+e.toString());
+      log.info('>>>>>>>>>>>>>>>>> '+e.toString());
       return login;
     }
   }

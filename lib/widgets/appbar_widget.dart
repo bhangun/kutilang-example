@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_state.dart';
 
 class KutAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
-  final Function? onLogout;
+  final VoidCallback? onLogout;
   const KutAppBar({this.title, this.onLogout});
 
   @override
   Widget build(BuildContext context) {
-    return /* PreferredSize(
+    return PreferredSize(
             preferredSize: Size.fromHeight(100.0),
-            child:  */AppBar(
+            child: AppBar(
               title: Text(title!),
               actions: <Widget>[
                 IconButton(
@@ -22,8 +23,13 @@ class KutAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 )
               ],
-           // )
+            )
             );
+  }
+
+  logout(BuildContext context){
+    print('<><>logout<><>');
+    context.read<AuthenticationBloc>().add(LoggedOut());
   }
 
   @override

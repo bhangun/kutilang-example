@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 import 'package:kutilang_example/pages/home.dart';
 import 'package:kutilang_example/pages/login.dart';
+import 'package:kutilang_example/services/local/logger.dart';
+import 'package:logging/logging.dart';
 
 import 'bloc/app/app_bloc.dart';
 import 'bloc/auth_bloc/auth_bloc.dart';
@@ -34,26 +36,33 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   ModulesRegistry();
   Bloc.observer = KutBlocObserver();
+
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print(
+        '${record.time}-(${record.level.name}) (${record.loggerName}): ${record.message} ${record.object}');
+  });
   runApp(KutilangApp());
 }
 
 class KutilangApp extends StatelessWidget {
+  final log = Logger('main');
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => ThemeCubit(),
-        ),
-        BlocProvider<AppBloc>(
-          create: (_) => AppBloc(),
-        ),
-        BlocProvider<AuthenticationBloc>(
-          create: (_) => AuthenticationBloc(AuthenticationState.unauthenticated()),
-        ),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeData>(
-        builder: (_, theme) {
+        providers: [
+          BlocProvider(
+            create: (_) => ThemeCubit(),
+          ),
+          BlocProvider<AppBloc>(
+            create: (_) => AppBloc(),
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (_) =>
+                AuthenticationBloc(AuthenticationState.unauthenticated()),
+          ),
+        ],
+        child: BlocBuilder<ThemeCubit, ThemeData>(builder: (_, theme) {
           return MaterialApp(
               key: Key('kutilangapp'),
               theme: theme,
@@ -81,11 +90,9 @@ class KutilangApp extends StatelessWidget {
               builder: (context, child) {
                 return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
-
-                    print('????????????????????????????? '+state.status.toString());
-                       switch (state.status) {
+                  switch (state.status) {
                     case AuthStatus.authenticated:
-                     return HomeScreen();
+                      return HomeScreen();
                     case AuthStatus.unauthenticated:
                       return LoginScreen();
                     default:
@@ -101,9 +108,7 @@ class KutilangApp extends StatelessWidget {
                       break;
                   } */
                 });
-              }
-      );
-      })
-    );
+              });
+        }));
   }
 }

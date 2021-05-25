@@ -2,14 +2,14 @@ import 'package:kutilang_example/modules/account/models/user_model.dart';
 import 'package:meta/meta.dart';
 
 
-class ApplicationState {
+class AppState {
   final bool isInitializing;
   final bool isLoading;
   final bool isAuthenticated;
   final User? authorizedUser;
   final List<dynamic>? roles;
 
-  const ApplicationState({
+  const AppState({
     required this.isInitializing,
     required this.isLoading,
     required this.isAuthenticated,
@@ -17,16 +17,16 @@ class ApplicationState {
     this.roles
   });
 
-  factory ApplicationState.initializing() {
-    return ApplicationState(
+  factory AppState.initializing() {
+    return AppState(
       isInitializing: true,
       isAuthenticated: false,
       isLoading: false,
     );
   }
 
-  factory ApplicationState.authorizedUser(User user) {
-    return ApplicationState(
+  factory AppState.authorizedUser(User user) {
+    return AppState(
       isInitializing: false,
       isAuthenticated: true,
       isLoading: false,
@@ -34,14 +34,14 @@ class ApplicationState {
       roles: user.authorities
     );
   }
-  ApplicationState copyWith({
+  AppState copyWith({
     bool? isInitializing,
     bool? isAuthenticated,
     bool? isLoading,
     User? authorizedUser,
     List<dynamic>? roles,
   }) {
-    return ApplicationState(
+    return AppState(
       isInitializing: isInitializing ?? this.isInitializing,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       isLoading: isLoading ?? this.isLoading,
@@ -54,7 +54,7 @@ class ApplicationState {
 @override
   bool operator ==( Object other) =>
       identical( this, other) ||
-      other is ApplicationState &&
+      other is AppState &&
           runtimeType == other.runtimeType &&
           isInitializing == other.isInitializing &&
           isAuthenticated == other.isAuthenticated  &&
@@ -68,7 +68,7 @@ class ApplicationState {
 
   @override
   String toString() =>
-      'ApplicationState { isInitializing: $isInitializing, isLoading: $isLoading, '+
+      'AppState { isInitializing: $isInitializing, isLoading: $isLoading, '+
       'isAuthenticated: $isAuthenticated }';
 
   

@@ -3,6 +3,8 @@ import 'dart:convert';
 
 // import 'package:f_logs/f_logs.dart';
 
+import 'package:logging/logging.dart';
+
 import '../modules/account/models/user_model.dart';
 import '../utils/config.dart';
 import '../utils/helper.dart';
@@ -11,6 +13,7 @@ import 'network/rest_error_util.dart';
 import 'network/rest_services.dart';
 
 class AuthServices {
+  static final log = Logger('AuthenticationBloc');
   static const _API_ACCOUNT = 'account';
 
   static const _PROFILE = 'profile';
@@ -50,14 +53,14 @@ class AuthServices {
     bool result = false;
     try {
       await RestServices.post(_API_USERS_AUTHENTICATE, body)
-          .then((d) => _saveToken(d), onError: (e) => {print(e.toString())});
+          .then((d) => _saveToken(d), onError: (e) => {log.info(e.toString())});
      // if (await AppStorage.fetch(AUTH_TOKEN) != null) {
         result = true;
         // FLog.info(text: "Token saved!");
      // }
     } catch (e) {
        result = true;
-      print('<><><><><>< '+e.toString());
+      log.info('<><><><><>< '+e.toString());
       // FLog.error(text: DioErrorUtil.handleError(e));
     }
     return result;

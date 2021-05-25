@@ -2,10 +2,12 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/modules/register_modules.dart';
+import 'package:logging/logging.dart';
 
 import 'modules.dart';
 
 class ModulesRegistry {
+  final log = Logger('AuthenticationBloc');
   // singleton object
   static final ModulesRegistry _singleton = ModulesRegistry._();
 
@@ -25,7 +27,7 @@ class ModulesRegistry {
           Modules.addPages(p);
         });
 
-        print(m.providers());
+        log.info(m.providers());
 
 
        // _blocProvider.add(m.providers());

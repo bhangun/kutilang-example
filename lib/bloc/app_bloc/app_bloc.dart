@@ -5,12 +5,12 @@ import 'package:bloc/bloc.dart';
 import 'app_event.dart';
 import 'app_state.dart';
 
-class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
-  ApplicationBloc(ApplicationState state) : super(state);
+class AppBloc extends Bloc<AppEvent, AppState> {
+  AppBloc(AppState state) : super(state);
 
   @override
-  ApplicationState get initialState {
-    return ApplicationState.initializing();
+  AppState get initialState {
+    return AppState.initializing();
   }
 
   void onAppStart() {
@@ -26,16 +26,16 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   }
 
   @override
-  Stream<ApplicationState> mapEventToState(ApplicationEvent event) async* {
+  Stream<AppState> mapEventToState(AppEvent event) async* {
     if (event is AppStarted) {
       final bool hasToken = await _hasToken();
       // User user =await prefs(TOKEN);
 
       // fetchUser(token);
       if (hasToken) {
-        //yield ApplicationState.authorizedUser();
+        //yield AppState.authorizedUser();
       } else {
-        // yield ApplicationState.unauthenticated();
+        // yield AppState.unauthenticated();
       }
     }
 
@@ -64,6 +64,6 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
 
   _fetchProfile(String token) async {
     //JWT jj = await jwt();
-    //print(jj.getClaim("auth"));
+    //log.info(jj.getClaim("auth"));
   }
 }

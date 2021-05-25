@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/services/auth_jwt_services.dart';
 import 'package:kutilang_example/services/navigation.dart';
+import 'package:logging/logging.dart';
 
 import 'auth_event.dart';
 import 'auth_state.dart';
@@ -13,31 +14,33 @@ class AuthenticationBloc
 
   final _controller = StreamController<AuthStatus>();
 
+  final log = Logger('AuthenticationBloc');
+
   @override
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
     if (event is CheckAuthentication) {
-      print('CheckAuthentication');
+      log.fine('CheckAuthentication');
       yield (await _hasToken())
           ? AuthenticationState.authenticated()
           : AuthenticationState.unauthenticated();
     }
 
     if (event is LoginButtonPressed) {
-      print('LoginButtonPressed');
+      log.fine('LoginButtonPressed');
       yield (await processingLogin())
           ? AuthenticationState.authenticated()
           : AuthenticationState.unauthenticated();
     }
 
     if (event is LoggedIn) {
-      print('LoggedIn');
+      log.fine('LoggedIn');
       await _persistToken(event.token);
       yield AuthenticationState.authenticated();
     }
 
     if (event is LoggedOut) {
-      print('LoggedOut');
+      log.fine('LoggedOut');
       await _deleteToken();
       yield AuthenticationState.unauthenticated();
     }
@@ -59,7 +62,7 @@ class AuthenticationBloc
   Future<bool> processingLogin() async {
     bool v = await AuthServices.login(username, password, rememberMe);
     // if(v)NavigationServices.navigateTo(AppsRoutes.home);
-    print('>>>>>>>>'+ v.toString());
+    log.info('>>>>>>>>'+ v.toString());
     return v;
   }
 
@@ -67,7 +70,7 @@ class AuthenticationBloc
 
 
   void setUserId(String value) {
-    print('>>> ' + value);
+    log.info('>>> ' + value);
     username = value;
     _validateUserEmail(value);
   }
@@ -162,7 +165,7 @@ class AuthenticationBloc
   }
 
   Future gotoHome() async {
-    // FLog.info(text: "Redirect to home!");
+    log.info( "Redirect to home!");
     if (loggedIn) NavigationServices.navigateTo(AppsRoutes.home);
   }
 
@@ -170,12 +173,10 @@ class AuthenticationBloc
     try {
       NavigationServices.navigateTo(AppsRoutes.home);
       if (value) {
-        print(value);
+        log.info(value);
         // FLog.info(text: "Success login!");
         NavigationServices.navigateTo(AppsRoutes.home);
-        loggedIn = true;
-        loading = false;
-        success = true;
+       log.info("------");
       } else if (value.toString().contains("Unauthorized")) {
         showError = true;
         errorMessage = "Username and password doesn't match";
@@ -201,9 +202,9 @@ class AuthenticationBloc
   }
 
   Future logout() async {
-    print('<><><><:<:<:<:>');
+    log.info('<><><><:<:<:<:>');
     AuthenticationState.unauthenticated();
-   
+    log.info('<><><><logout:<:<:<:>');
     //await AuthServices.logout();
     
     

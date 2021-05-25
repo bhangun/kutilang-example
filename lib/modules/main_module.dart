@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kutilang_example/bloc/app/app_bloc.dart';
 import 'package:kutilang_example/models/module.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
@@ -33,9 +32,7 @@ class MainModule implements Module {
       BlocProvider(
         create: (_) => ThemeCubit(),
       ),
-      BlocProvider<AppBloc>(
-        create: (_) => AppBloc(),
-      ),
+     
     ];
   }
 

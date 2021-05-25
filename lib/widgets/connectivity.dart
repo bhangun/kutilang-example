@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:logging/logging.dart';
 
 class ConnectivityWidget extends StatefulWidget {
   ConnectivityWidget({required Key key}) : super(key: key);
@@ -15,7 +16,8 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
   String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
+  final log = Logger('AuthenticationBloc');
+  
   @override
   void initState() {
     super.initState();
@@ -37,7 +39,7 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      print(e.toString());
+      log.info(e.toString());
     }
 
     // If the widget was removed from the tree while the asynchronous platform

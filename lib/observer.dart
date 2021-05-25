@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io' show Platform;
 
-class KutBlocObserver extends BlocObserver {
+import 'package:logging/logging.dart';
 
+class KutBlocObserver extends BlocObserver {
+final log = Logger('AuthenticationBloc');
 
 checkPlatform(){
 if (Platform.isAndroid) {
@@ -21,20 +23,20 @@ if (Platform.isAndroid) {
 
   @override
   void onEvent(Bloc bloc, Object? event) {
-    print(event);
+    log.info(event);
     super.onEvent(bloc, event);
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    print(transition);
+    log.info(transition);
     // Transition { currentState: ThemeData#e0c60, event: null, nextState: ThemeData#62398 }
     super.onTransition(bloc, transition);
   }
 
   @override
   void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    print(error);
+    log.info(error);
     super.onError(bloc, error, stackTrace);
   }
 }

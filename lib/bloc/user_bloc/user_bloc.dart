@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:corsac_jwt/corsac_jwt.dart';
+import 'package:kutilang_example/modules/account/models/user_model.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
@@ -14,6 +14,8 @@ import '../../services/services.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
 
   String token;
+
+  UserBloc(UserState state) : super(state);
 
   @override
   UserState get initialState {
@@ -139,7 +141,7 @@ List<User> usersData(String data) {
       
         _fetchProfile(String token) async{
           JWT jj = await jwt();
-          print(jj.getClaim("auth"));
+          log.info(jj.getClaim("auth"));
         }
 
         

@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 // import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/services/local/local_storage.dart';
 import 'package:kutilang_example/utils/config.dart';
+import 'package:logging/logging.dart';
 
 import 'rest_error_util.dart';
 
 class RestServices {
+  static final log = Logger('AuthenticationBloc');
   static Dio _dio = Dio()
     ..options.baseUrl = API
     ..options.connectTimeout = TIMEOUT_CONNECTION
@@ -13,26 +15,27 @@ class RestServices {
     ..interceptors.clear()
     ..interceptors.add(LogInterceptor(responseBody: true))
     ..interceptors.add(InterceptorsWrapper(
-        onRequest: (RequestOptions options) async {
+        onRequest: (RequestOptions options, RequestInterceptorHandler requestHandler) async {
           try {
             String? token = (await AppStorage.fetch(TOKEN))!;
             options.headers["Authorization"] = "Bearer " + token;
           } catch (e) {
-            print('>>>> '+options.headers.toString());
+            log.info(options.headers.toString());
           }
+          //requestHandler.resolve(response);
         },
-        onResponse: (Response<dynamic> e) => {
-          print(e.toString())
+        onResponse: (Response<dynamic> e, ResponseInterceptorHandler responseHandler) => {
+          log.info(e.toString())
         },
-        onError: (DioError error) async {
-          // FLog.error(text: DioErrorUtil.handleError(error));
+        onError: (DioError error, ErrorInterceptorHandler errorHandler) async {
+          log.info(DioErrorUtil.handleError(error));
           // Do something with response error
           if (error.response?.statusCode == 403) {
             // requestLock.lock()-> If no token, request token firstly and lock this interceptor
             // to prevent other request enter this interceptor.
             _dio.interceptors.requestLock.lock();
             _dio.interceptors.responseLock.lock();
-            // RequestOptions options = error.response.request;
+            
           }
         }));
 

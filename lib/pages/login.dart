@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kutilang_example/bloc/app/app_bloc.dart';
+import 'package:kutilang_example/bloc/app_bloc/app_bloc.dart';
 
-// import 'package:kutilang_example/bloc/authentication/authentication_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
 
 import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/layout/mobile.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-// import 'package:kutilang_example/generated/i18n.dart';
 
 import '../utils/config.dart';
 import '../widgets/empty_app_bar_widget.dart';
-import '../widgets/progress_indicator_widget.dart';
-import '../widgets/rounded_button_widget.dart';
+
 import '../widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -69,11 +64,12 @@ class _Loginpagestate extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     _context = context;
     return Scaffold(
         primary: true,
         appBar: EmptyAppBar(),
-        body: BlocBuilder<AppBloc, int>(
+        body: BlocBuilder<AppBloc>(
           builder: (_, count) {
             return _buildBody(context);
           },
@@ -82,43 +78,43 @@ class _Loginpagestate extends State<LoginScreen> {
 
   Material _buildBody(BuildContext context) {
     return Material(
+        key: _formKey,
         child: MobileLayout(
-      rightChild: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SvgPicture.asset(
+          rightChild: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SvgPicture.asset(
+                IMAGE_SPLASH,
+                width: 60,
+                height: 60,
+              ),
+              SizedBox(height: 24.0),
+              _buildUserIdField(),
+              _buildPasswordField(),
+              _buildForgotPasswordButton(),
+              _buildSignInButton(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: FloatingActionButton(
+                  child: const Icon(Icons.brightness_6),
+                  onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                ),
+              ),
+            ],
+          ),
+          leftChild: SizedBox.expand(
+              child: SvgPicture.asset(
             IMAGE_SPLASH,
-            width: 60,
-            height: 60,
-          ),
-          SizedBox(height: 24.0),
-          _buildUserIdField(),
-          _buildPasswordField(),
-          _buildForgotPasswordButton(),
-          _buildSignInButton(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: FloatingActionButton(
-              child: const Icon(Icons.brightness_6),
-              onPressed: () => context.read<ThemeCubit>().toggleTheme(),
-            ),
-          ),
-        ],
-      ),
-      leftChild: SizedBox.expand(
-          child: SvgPicture.asset(
-        IMAGE_SPLASH,
-        width: 100,
-        height: 100,
-      )),
-      showProgress: false,
-    ));
+            width: 100,
+            height: 100,
+          )),
+          showProgress: false,
+        ));
   }
 
   Widget _buildUserIdField() => TextFieldWidget(
-        //key: Key('user_id'),
         hint: S.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
@@ -132,7 +128,6 @@ class _Loginpagestate extends State<LoginScreen> {
       );
 
   Widget _buildPasswordField() => TextFieldWidget(
-        //key: Key('user_password'),
         hint: S.of(context)!.password,
         isObscure: true,
         padding: EdgeInsets.only(top: 16.0),
@@ -155,9 +150,10 @@ class _Loginpagestate extends State<LoginScreen> {
               context.read<AuthenticationBloc>().forgotPassword()));
 
   Widget _buildSignInButton() => ElevatedButton(
-        //key: Key('user_sign_button'),
-        onPressed: ()=>
-            context.read<AuthenticationBloc>().add(LoginButtonPressed()),//.login(), //{_authBloc.login()},
+        key: Key('user_sign_button'),
+        onPressed: () => context
+            .read<AuthenticationBloc>()
+            .add(LoginButtonPressed()), //.login(), //{_authBloc.login()},
         child: Text(S.of(_context)!.sign_in),
       ); //);
 }
