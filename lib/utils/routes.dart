@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 
-class AppRoutes {
-  static final AppRoutes _singleton = AppRoutes._();
-  AppRoutes._();
+class RoutesService {
+  static final RoutesService _singleton = RoutesService._();
+  RoutesService._();
 
-  factory AppRoutes() => _singleton;
+  factory RoutesService() => _singleton;
 
   static Map<String, Widget Function(BuildContext)> _routes = <String, WidgetBuilder>{};
 
-  static Future<AppRoutes> get instance async{ 
+  static Future<RoutesService> get instance async{ 
     _routes.addAll(AppsRoutes.routes);
     return _singleton;
   }

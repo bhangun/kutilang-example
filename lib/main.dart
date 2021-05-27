@@ -15,12 +15,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/app_bloc/app_state.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 import 'package:kutilang_example/pages/home.dart';
 import 'package:kutilang_example/pages/login.dart';
 import 'package:logging/logging.dart';
 import 'bloc/app_bloc/app_bloc.dart';
 import 'bloc/auth_bloc/auth_bloc.dart';
+import 'bloc/locale_cubit.dart';
 import 'generated/i18n.dart';
 import 'observer.dart';
 import 'services/navigation.dart';
@@ -52,61 +52,45 @@ class KutilangApp extends StatelessWidget {
           BlocProvider(
             create: (_) => ThemeCubit(),
           ),
+          BlocProvider(
+            create: (_) => LocaleCubit(),
+          ),
           BlocProvider<AppBloc>(
             create: (_) => AppBloc(AppState.initializing()),
           ),
-          BlocProvider<AuthenticationBloc>(
-            create: (_) =>
-                AuthenticationBloc(AuthenticationState.unauthenticated()),
+          BlocProvider<AuthBloc>(
+            create: (_) => AuthBloc(
+                state: AuthState.unauthenticated()),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(builder: (_, theme) {
-          return MaterialApp(
-              key: Key('kutilangapp'),
+          return BlocBuilder<LocaleCubit, Locale>(builder: (_, locale) {
+            return MaterialApp(
+              key: GlobalKey<NavigatorState>(),
               theme: theme,
-              routes: AppRoutes.routes,
+              routes: RoutesService.routes,
+              initialRoute: AppsRoutes.splash,
               navigatorKey: NavigationServices.navigatorKey,
               debugShowCheckedModeBanner: false,
-              locale: Locale('en', "EN"),
-              localizationsDelegates: [S.delegate],
-              supportedLocales: S.delegate.supportedLocales,
-              localeResolutionCallback: S.delegate
-                  .resolution(fallback: new Locale(LOCALE_ENGLISH, "en")),
-              // onGenerateRoute: (_) => SplashScreen.route(),
-              //home: HomeScreen(),
-              /*  builder: (context, child) {
-                switch (context.read<AuthenticationBloc>().processingLogin()) {
-                    case AuthStatus.authenticated:
-                     return HomeScreen();
-                    case AuthStatus.unauthenticated:
-                      return LoginScreen();
-                    default:
-                      return SplashScreen();
-                  }
-                    }
-          ); */
-              builder: (context, child) {
-                return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                    builder: (context, state) {
-                  switch (state.status) {
-                    case AuthStatus.authenticated:
-                      return HomeScreen();
-                    case AuthStatus.unauthenticated:
-                      return LoginScreen();
-                    default:
-                      return SplashScreen();
-                  }
-                  /* switch (state.status) {
-                    case AuthStatus.authenticated:
-                      //context.read<AuthenticationBloc>().processingLogin();
-                      break;
-                    case AuthStatus.unauthenticated:
-                      break;
-                    default:
-                      break;
-                  } */
-                });
-              });
+              locale: locale,
+              localeResolutionCallback: (
+                Locale? _locale,
+                Iterable<Locale> supportedLocales,
+              ) {
+                return locale;
+              },
+              localizationsDelegates: [
+                const AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: [
+                const Locale('en', ''),
+                const Locale('id', ''),
+                const Locale('ar', ''),
+              ],
+            );
+          });
         }));
   }
 }
