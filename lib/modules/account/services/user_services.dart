@@ -33,7 +33,7 @@ class UserServices {
   }
 
   // Fetch single user
-  /* static Future<User> user(String login) async {
+  static Future<User> user(String login) async {
     //String param = '{"login":"'+login+'"}';
     String param = '{login:$login}';
     var response = await RestServices.fetch(API_USER + regex(param)); //param);//
@@ -60,6 +60,6 @@ class UserServices {
   // Delete user
   static deleteUser(String userID) async {
     await RestServices.delete(API_USER, userID);
-  } */
+  }
 
 }

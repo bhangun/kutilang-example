@@ -7,7 +7,7 @@ import 'package:logging/logging.dart';
 import 'rest_error_util.dart';
 
 class RestServices {
-  static final log = Logger('AuthenticationBloc');
+  static final log = Logger('AuthBloc');
   static Dio _dio = Dio()
     ..options.baseUrl = API
     ..options.connectTimeout = TIMEOUT_CONNECTION
@@ -15,7 +15,8 @@ class RestServices {
     ..interceptors.clear()
     ..interceptors.add(LogInterceptor(responseBody: true))
     ..interceptors.add(InterceptorsWrapper(
-        onRequest: (RequestOptions options, RequestInterceptorHandler requestHandler) async {
+        onRequest: (RequestOptions options,
+            RequestInterceptorHandler requestHandler) async {
           try {
             String? token = (await AppStorage.fetch(TOKEN))!;
             options.headers["Authorization"] = "Bearer " + token;
@@ -24,9 +25,9 @@ class RestServices {
           }
           //requestHandler.resolve(response);
         },
-        onResponse: (Response<dynamic> e, ResponseInterceptorHandler responseHandler) => {
-          log.info(e.toString())
-        },
+        onResponse:
+            (Response<dynamic> e, ResponseInterceptorHandler responseHandler) =>
+                {log.info(e.toString())},
         onError: (DioError error, ErrorInterceptorHandler errorHandler) async {
           log.info(DioErrorUtil.handleError(error));
           // Do something with response error
@@ -35,7 +36,6 @@ class RestServices {
             // to prevent other request enter this interceptor.
             _dio.interceptors.requestLock.lock();
             _dio.interceptors.responseLock.lock();
-            
           }
         }));
 

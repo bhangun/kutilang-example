@@ -13,7 +13,7 @@ import 'network/rest_error_util.dart';
 import 'network/rest_services.dart';
 
 class AuthServices {
-  static final log = Logger('AuthenticationBloc');
+  static final log = Logger('AuthBloc');
   static const _API_ACCOUNT = 'account';
 
   static const _PROFILE = 'profile';

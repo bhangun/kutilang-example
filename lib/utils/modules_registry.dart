@@ -7,7 +7,7 @@ import 'package:logging/logging.dart';
 import 'modules.dart';
 
 class ModulesRegistry {
-  final log = Logger('AuthenticationBloc');
+  final log = Logger('AuthBloc');
   // singleton object
   static final ModulesRegistry _singleton = ModulesRegistry._();
 

@@ -38,7 +38,7 @@ class MainModule implements Module {
 
   @override
   void routes() {
-    AppRoutes.addRoutes(AppsRoutes.routes);
-    AppRoutes.addRoutes(UserRoutes.routes);
+    RoutesService.addRoutes(AppsRoutes.routes);
+    RoutesService.addRoutes(UserRoutes.routes);
   }
 }

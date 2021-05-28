@@ -15,20 +15,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/app_bloc/app_state.dart';
-import 'package:kutilang_example/pages/home.dart';
-import 'package:kutilang_example/pages/login.dart';
 import 'package:logging/logging.dart';
 import 'bloc/app_bloc/app_bloc.dart';
-import 'bloc/auth_bloc/auth_bloc.dart';
+import 'bloc/auth_bloc/auth.dart';
 import 'bloc/locale_cubit.dart';
-import 'generated/i18n.dart';
+import 'generated/localization.dart';
 import 'observer.dart';
+import 'services/apps_routes.dart';
 import 'services/navigation.dart';
 import 'utils/modules_registry.dart';
 import 'bloc/theme_cubit.dart';
-import 'utils/config.dart';
+import 'utils/routes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'pages/splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,7 +59,7 @@ class KutilangApp extends StatelessWidget {
           ),
           BlocProvider<AuthBloc>(
             create: (_) => AuthBloc(
-                state: AuthState.unauthenticated()),
+                 AuthState.unauthenticated()),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(builder: (_, theme) {

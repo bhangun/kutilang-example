@@ -1,6 +1,5 @@
 import 'package:biometric_storage/biometric_storage.dart';
 
-import 'logger.dart';
 
 class AppStorage {
   static final String baseName = 'default';

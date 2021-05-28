@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kutilang_example/bloc/app_bloc/app_bloc.dart';
+import 'package:kutilang_example/bloc/app_bloc/app.dart';
 
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
@@ -34,7 +34,7 @@ class _Loginpagestate extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   //store
-  //final _authBloc = AuthenticationBloc();
+  //final _authBloc = AuthBloc();
 
   @override
   void initState() {
@@ -45,11 +45,11 @@ class _Loginpagestate extends State<LoginScreen> {
 
     _userEmailController.addListener(() {
       //this will be called whenever user types in some value
-      context.read<AuthenticationBloc>().setUserId(_userEmailController.text);
+      context.read<AuthBloc>().setUserId(_userEmailController.text);
     });
     _passwordController.addListener(() {
       //this will be called whenever user types in some value
-      context.read<AuthenticationBloc>().setPassword(_passwordController.text);
+      context.read<AuthBloc>().setPassword(_passwordController.text);
     });
   }
 
@@ -69,8 +69,8 @@ class _Loginpagestate extends State<LoginScreen> {
     return Scaffold(
         primary: true,
         appBar: EmptyAppBar(),
-        body: BlocBuilder<AppBloc>(
-          builder: (_, count) {
+        body: BlocBuilder<AppBloc,AppState>(
+          builder: (_, state) {
             return _buildBody(context);
           },
         ));
@@ -124,7 +124,7 @@ class _Loginpagestate extends State<LoginScreen> {
         onFieldSubmitted: (value) {
           FocusScope.of(context).requestFocus(_passwordFocusNode);
         },
-        errorText: context.read<AuthenticationBloc>().userMessage,
+        errorText: context.read<AuthBloc>().userMessage,
       );
 
   Widget _buildPasswordField() => TextFieldWidget(
@@ -135,7 +135,7 @@ class _Loginpagestate extends State<LoginScreen> {
         iconColor: Colors.black54,
         textController: _passwordController,
         focusNode: _passwordFocusNode,
-        errorText: context.read<AuthenticationBloc>().passwordMessage,
+        errorText: context.read<AuthBloc>().passwordMessage,
       );
 
   Widget _buildForgotPasswordButton() => Align(
@@ -147,12 +147,12 @@ class _Loginpagestate extends State<LoginScreen> {
             S.of(_context)!.forgot_password,
           ),
           onPressed: () =>
-              context.read<AuthenticationBloc>().forgotPassword()));
+              context.read<AuthBloc>().forgotPassword()));
 
   Widget _buildSignInButton() => ElevatedButton(
         key: Key('user_sign_button'),
         onPressed: () => context
-            .read<AuthenticationBloc>()
+            .read<AuthBloc>()
             .add(LoginButtonPressed()), //.login(), //{_authBloc.login()},
         child: Text(S.of(_context)!.sign_in),
       ); //);

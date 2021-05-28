@@ -16,7 +16,7 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
   String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  final log = Logger('AuthenticationBloc');
+  final log = Logger('AuthBloc');
   
   @override
   void initState() {

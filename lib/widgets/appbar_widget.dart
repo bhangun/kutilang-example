@@ -17,7 +17,7 @@ class KutAppBar extends StatelessWidget implements PreferredSizeWidget {
               title: Text(title!),
               actions: <Widget>[
                 IconButton(
-                  onPressed: () => onLogout,//context.read<AuthenticationBloc>().logout(),
+                  onPressed: () => onLogout,//context.read<AuthBloc>().logout(),
                   icon: Icon(
                     Icons.power_settings_new,
                   ),
@@ -29,7 +29,7 @@ class KutAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   logout(BuildContext context){
     print('<><>logout<><>');
-    context.read<AuthenticationBloc>().add(LoggedOut());
+    context.read<AuthBloc>().add(LoggedOut());
   }
 
   @override

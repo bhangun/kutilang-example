@@ -27,7 +27,7 @@ class _Homepagestate extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return BlocBuilder<AuthBloc, AuthState>(
         builder: (constext, count) {
       return Scaffold(
         key: _homeKey,
@@ -44,7 +44,7 @@ class _Homepagestate extends State<HomeScreen> {
 
   void test() {
    // print('-----logout-----');
-    context.read<AuthenticationBloc>().add(LoggedOut());
+    context.read<AuthBloc>().add(LoggedOut());
     //NavigationServices.navigateTo(AppsRoutes.login);
   }
 

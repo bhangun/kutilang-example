@@ -1,24 +1,24 @@
+import 'package:kutilang_example/modules/account/models/user_model.dart';
 import 'package:meta/meta.dart';
-import '../../models/user.dart';
 
 class UserState {
   final bool isInitializing;
   final bool isLoading;
   final bool isAuthenticated;
-  final User user;
-  final List<User> users;
-  final List<dynamic> roles;
+  final User? user;
+  final List<User>? users;
+  final List<dynamic>? roles;
   final String error;
-  final Pages pages;
+  final Pages? pages;
 
   const UserState({
-    @required this.isInitializing,
-    @required this.isLoading,
-    @required this.isAuthenticated,
+    required this.isInitializing,
+    required this.isLoading,
+    required this.isAuthenticated,
     this.user,
     this.users,
     this.roles,
-    @required this.error,
+    required this.error,
     this.pages
   });
 
@@ -64,12 +64,12 @@ class UserState {
   }
 
   UserState copyWith({
-    bool isInitializing,
-    bool isAuthenticated,
-    bool isLoading,
-    String error,
-    User user,
-    List<dynamic> roles,
+    bool? isInitializing,
+    bool? isAuthenticated,
+    bool? isLoading,
+    String? error,
+    User? user,
+    List<dynamic>? roles,
   }) {
     return UserState(
       isInitializing: isInitializing ?? this.isInitializing,

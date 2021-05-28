@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kutilang_example/modules/account/user_bloc/user.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
 
 import '../../../widgets/alert_widget.dart';
-import '../bloc/user_bloc.dart';
 import '../../../widgets/global_methods.dart';
 import '../../../widgets/progress_indicator_widget.dart';
 import '../models/user_model.dart';
-
 
 class UserForm extends StatefulWidget {
   final User? data;
@@ -23,9 +23,9 @@ class _UserFormState extends State<UserForm> {
   final _lastname = TextEditingController();
   final _email = TextEditingController();
 
-  final _userBloc = UserStore();
+  var _userBloc; //UserStore();
 
-@override
+  @override
   void initState() {
     super.initState();
 
@@ -58,58 +58,57 @@ class _UserFormState extends State<UserForm> {
   @override
   Widget build(BuildContext context) {
     if (widget.data != null) {
-     // widget.isEdit = true;
+      // widget.isEdit = true;
       User user = widget.data!;
-
       _username.text = user.login!;
       _firstname.text = user.firstName!;
       _lastname.text = user.lastName!;
       _email.text = user.email!;
     }
 
-    return Scaffold(
+    return BlocBuilder<UserBloc, UserState>(builder: (_, state) {
+      return Scaffold(
         appBar: AppBar(
           title: Text('Create User'),
         ),
         body: _buildBody(),
         floatingActionButton: FloatingActionButton(
-          onPressed: ()=> {},//_userBloc.save(),
+          onPressed: () => {}, //_userBloc.save(),
           tooltip: 'Add',
           child: Icon(Icons.save),
         ),
         bottomNavigationBar: KutBotomBar(),
-        );
+      );
+    });
   }
 
-  _buildBody() {
+  Widget _buildBody() {
     return Stack(
-      /* children: <Widget>[
-        _userBloc.loading
+      children: <Widget>[
+        /* _userBloc.loading
                 ? CustomProgressIndicatorWidget()
                 : Material(child: _buildForm())
-          ,
         ),
         _userBloc.success
                 ? Container()
                 : showErrorMessage(context, _userBloc.errorMessage)
           
-        ),
-        Observer(
+        ), */
+        /* Observer(
           key: Key('dialog'),
           builder: (context) {
             return _userBloc.isModified ? KutAlert(onCancel: ()=>{}, onOk: ()=>{},):Container();
           }
-        ),
-      ], */
+        ), */
+      ],
     );
   }
 
-  _buildForm(){
+  _buildForm() {
     return SafeArea(
-                child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                children: _buildListChild())
-          );
+        child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            children: _buildListChild()));
   }
 
   _buildListChild() {

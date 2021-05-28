@@ -2,22 +2,22 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class User extends Equatable{
+class User extends Equatable {
   User(
       {required this.id,
       this.login,
-       this.firstName,
-       this.lastName,
-       this.email,
+      this.firstName,
+      this.lastName,
+      this.email,
       this.imageUrl,
-       this.activated,
+      this.activated,
       this.langKey,
-       this.authorities,
+      this.authorities,
       this.createdBy,
       this.createdDate,
       this.lastModifiedBy,
-      this.lastModifiedDate}): 
-      super();
+      this.lastModifiedDate})
+      : super();
 
   final int id;
   final String? login;
@@ -70,15 +70,17 @@ class User extends Equatable{
         '"lastModifiedDate"': '"' + lastModifiedDate!.toIso8601String() + 'Z"'
       };
 
-  static List<User> listFromString(String str) => new List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
+  static List<User> listFromString(String str) =>
+      new List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 
   static List<User> listFromJson(List<dynamic> data) {
     return data.map((post) => User.fromJson(post)).toList();
   }
 
-  static String listUserToJson(List<User> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
+  static String listUserToJson(List<User> data) =>
+      json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
 
-static const empty = null;
+  static const empty = null;
 
   @override
   List<Object> get props => throw UnimplementedError();
@@ -88,7 +90,7 @@ class UserList {
   final List<User>? users;
 
   UserList({
-     this.users,
+    this.users,
   });
 
   factory UserList.fromJson(List<dynamic> json) {

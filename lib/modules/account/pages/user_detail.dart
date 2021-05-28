@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kutilang_example/widgets/appbar_widget.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
-import '../bloc/user_bloc.dart';
+
 
 class UserDetail extends StatefulWidget {
   @override

@@ -2,42 +2,42 @@ import 'package:equatable/equatable.dart';
 
 enum AuthStatus { initialize, authenticated, processing, unauthenticated, failure }
 
-class AuthenticationState extends Equatable {
+class AuthState extends Equatable {
   final bool isLoading;
   final bool isAuthenticated;
   final AuthStatus status;
   final bool failure;
 
-  const AuthenticationState._(
+  const AuthState._(
       {this.isAuthenticated = false,
       this.isLoading = false,
       this.status = AuthStatus.initialize,
       this.failure = false});
 
-  const AuthenticationState.initialize() : this._();
+  const AuthState.initialize() : this._();
 
-  const AuthenticationState.authenticated()
+  const AuthState.authenticated()
       : this._(
             isAuthenticated: true,
             isLoading: false,
             status: AuthStatus.authenticated,
             failure: false);
 
-  const AuthenticationState.unauthenticated()
+  const AuthState.unauthenticated()
       : this._(
             isAuthenticated: false,
             isLoading: false,
             status: AuthStatus.unauthenticated,
             failure: false);
 
-  const AuthenticationState.failure()
+  const AuthState.failure()
       : this._(
             isAuthenticated: false,
             isLoading: false,
             status: AuthStatus.failure,
             failure: true);
 
-  const AuthenticationState.processing()
+  const AuthState.processing()
       : this._(
             isAuthenticated: false,
             isLoading: true,

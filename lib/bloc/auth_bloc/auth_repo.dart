@@ -6,7 +6,7 @@ import 'auth_bloc.dart';
 import 'auth_event.dart';
 
 class AuthenticationRepository {
-  final _controller = StreamController<AuthenticationStatus>();
+  var _controller ;//= StreamController<AuthenticationStatus>();
 
   void checkAuthentication() {
     //dispatch(CheckAuthentication());
@@ -14,12 +14,12 @@ class AuthenticationRepository {
 
   void onLoginButtonPressed({required String username, required String password, required bool rememberMe}) {
    // dispatch(
-      LoginButtonPressed(
+      /* LoginButtonPressed(
         username: username,
         password: password,
         rememberMe: rememberMe
     //  ),
-    );
+    ); */
   }
 
    rememberMe(){
