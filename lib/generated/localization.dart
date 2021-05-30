@@ -66,6 +66,9 @@ class AppLocalizations {
   String? get password {
     return _localizedValues[locale.languageCode]!['password'];
   }
+  String? get forgotPassword {
+    return _localizedValues[locale.languageCode]!['forgot_password'];
+  }
   // ignore: non_constant_identifier_names
   String? get sign_in {
     return _localizedValues[locale.languageCode]!['sign_in'];

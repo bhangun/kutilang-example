@@ -5,8 +5,10 @@ import 'package:kutilang_example/bloc/app_bloc/app.dart';
 
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
+import 'package:kutilang_example/bloc/locale_cubit.dart';
 
 import 'package:kutilang_example/generated/i18n.dart';
+import 'package:kutilang_example/generated/localization.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
 
@@ -24,7 +26,6 @@ class _Loginpagestate extends State<LoginScreen> {
   // text controllers
   TextEditingController _userEmailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
 
   //focus node
   late FocusNode _passwordFocusNode;
@@ -58,11 +59,10 @@ class _Loginpagestate extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         primary: true,
         appBar: EmptyAppBar(),
-        body: BlocBuilder<AppBloc,AppState>(
+        body: BlocBuilder<AppBloc, AppState>(
           builder: (_, state) {
             return _buildBody(context);
           },
@@ -88,13 +88,16 @@ class _Loginpagestate extends State<LoginScreen> {
               _buildPasswordField(),
               _buildForgotPasswordButton(),
               _buildSignInButton(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: FloatingActionButton(
+              Row(children: [
+               /*  FloatingActionButton(
                   child: const Icon(Icons.brightness_6),
                   onPressed: () => context.read<ThemeCubit>().toggleTheme(),
-                ),
-              ),
+                ), */
+                FloatingActionButton(
+                    child: const Icon(Icons.flag), onPressed: () => showModal()
+                    //context.read<LocaleCubit>().switchLocale('EN'),
+                    ),
+              ]),
             ],
           ),
           leftChild: SizedBox.expand(
@@ -108,7 +111,7 @@ class _Loginpagestate extends State<LoginScreen> {
   }
 
   Widget _buildUserIdField() => TextFieldWidget(
-       // hint: S.of(context)!.email,
+        // hint: S.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
         iconColor: Colors.black54,
@@ -135,20 +138,33 @@ class _Loginpagestate extends State<LoginScreen> {
       alignment: FractionalOffset.centerRight,
       child: TextButton(
           key: Key('user_forgot_password'),
-          // padding: EdgeInsets.all(0.0),
-          child: Text('forgot'
-           // S.of(_context)!.forgot_password,
-          ),
-          onPressed: () =>
-              context.read<AuthBloc>().forgotPassword()));
+          child: Text(AppLocalizations.of(context)!.forgotPassword!),
+          onPressed: () => context.read<AuthBloc>().forgotPassword()));
 
   Widget _buildSignInButton() => ElevatedButton(
         key: Key('user_sign_button'),
-        onPressed: () => context
-            .read<AuthBloc>()
-            .add(LoginButtonPressed()), 
-        child: Text('signin'
-          //S.of(_context)!.sign_in
-          ),
+        onPressed: () => context.read<AuthBloc>().add(LoginButtonPressed()),
+        child: Text(AppLocalizations.of(context)!.sign_in!),
       );
+
+  showModal() {
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 200,
+            // color: Colors.amber,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              //mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.close))
+              ],
+            ),
+          );
+        });
+  }
 }

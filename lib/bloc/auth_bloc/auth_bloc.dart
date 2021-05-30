@@ -4,7 +4,6 @@ import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/services/auth_jwt_services.dart';
 import 'package:kutilang_example/services/navigation.dart';
-import 'package:logging/logging.dart';
 
 import 'auth_event.dart';
 import 'auth_state.dart';
@@ -13,6 +12,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthState? state) : super(state!);
 
   final _controller = StreamController<AuthStatus>();
+
+  String username = '';
+
+  String userMessage = '';
+
+  String password = '';
+
+  String passwordMessage = '';
+
+  String confirmPassword = '';
+
+  String confirmPasswordMessage = '';
+
+  bool success = false;
+
+  bool loggedIn = false;
+
+  bool loading = false;
+
+  bool rememberMe = false;
+
+  String errorMessage = 'error';
+
+  bool showError = false;
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
@@ -24,10 +47,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     if (event is LoginButtonPressed) {
-      FLog.info(text: 'LoginButtonPressed');
-      yield (await processingLogin())
+      FLog.info(text: '>>>>> LoginButtonPressed');
+      /* processingLogin().then((value) =>
+          value ? AuthState.authenticated() : AuthState.unauthenticated());
+      FLog.info(text: '++++ LoginButtonPressed'); */
+      /* yield (await processingLogin())
           ? AuthState.authenticated()
-          : AuthState.unauthenticated();
+          : AuthState.unauthenticated(); */
+          AuthServices.login(username, password, rememberMe).then((value) => value? gotoHome():'');
+     // processingLogin();
+      await gotoHome();
     }
 
     if (event is LoggedIn) {
@@ -55,9 +84,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthStatus status = AuthStatus.initialize;
 
   Future<bool> processingLogin() async {
-    bool v = await AuthServices.login(username, password, rememberMe);
+    var v = false;
+    FLog.info(text: 'Processing login!');
+   // bool v = await AuthServices.login(username, password, rememberMe);
     // if(v)NavigationServices.navigateTo(AppsRoutes.home);
+    AuthServices.login(username, password, rememberMe).then((value) => v = value);
     FLog.info(text: '>>>>>>>>' + v.toString());
+
+    
     return v;
   }
 
@@ -128,29 +162,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return _isTrue;
   }
 
-  String username = '';
-
-  String userMessage = '';
-
-  String password = '';
-
-  String passwordMessage = '';
-
-  String confirmPassword = '';
-
-  String confirmPasswordMessage = '';
-
-  bool success = false;
-
-  bool loggedIn = false;
-
-  bool loading = false;
-
-  bool rememberMe = false;
-
-  String errorMessage = 'error';
-
-  bool showError = false;
 
   Future register() async {
     loading = true;
@@ -158,7 +169,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future gotoHome() async {
     FLog.info(text: "Redirect to home!");
-    if (loggedIn) NavigationServices.navigateTo(AppsRoutes.home);
+    NavigationServices.navigateTo(AppsRoutes.home);
   }
 
   void _loggedin(value) {

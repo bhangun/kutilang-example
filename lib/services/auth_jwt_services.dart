@@ -3,9 +3,7 @@ import 'dart:convert';
 
 import 'package:f_logs/f_logs.dart';
 
-import '../modules/account/models/user_model.dart';
 import '../utils/config.dart';
-import '../utils/helper.dart';
 import 'local/local_storage.dart';
 import 'network/rest_services.dart';
 
@@ -78,32 +76,5 @@ class AuthServices {
   /// POST requestPasswordReset
   static resetPasswordInit(String email) async {
     await RestServices.post('account/reset-password/init', email);
-  }
-
-  /// Path profile-info
-  /// GET getActiveProfiles
-  static profileInfo() async {
-    var data = await RestServices.fetch('profile-info');
-    User user = User.fromJson(json.decode(data.toString()));
-    return user;
-  }
-
-  /// registerAccount
-  static register(
-      String login, String email, String password, String langkey) async {
-    var body = '{ $login, $email, $password, $langkey }';
-    await RestServices.post('register', body);
-  }
-
-  List<User> usersData(String data) {
-    final parsed = json.decode(data).cast<Map<String, dynamic>>();
-    List<User> lu = parsed.map<User>((json) => User.fromJson(json)).toList();
-    return lu;
-  }
-
-  /// profile
-  Future<User> userProfile() async {
-    String profile = await prefs('profile');
-    return User.fromJson(json.decode(profile));
   }
 }
