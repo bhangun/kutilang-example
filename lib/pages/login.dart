@@ -21,11 +21,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _Loginpagestate extends State<LoginScreen> {
-  //text controllers
+  // text controllers
   TextEditingController _userEmailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  late BuildContext _context;
 
   //focus node
   late FocusNode _passwordFocusNode;
@@ -33,18 +32,13 @@ class _Loginpagestate extends State<LoginScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
-  //store
-  //final _authBloc = AuthBloc();
-
   @override
   void initState() {
     super.initState();
-    // _authBloc.gotoHome();
-
     _passwordFocusNode = FocusNode();
 
     _userEmailController.addListener(() {
-      //this will be called whenever user types in some value
+      // this will be called whenever user types in some value
       context.read<AuthBloc>().setUserId(_userEmailController.text);
     });
     _passwordController.addListener(() {
@@ -65,7 +59,6 @@ class _Loginpagestate extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
-    _context = context;
     return Scaffold(
         primary: true,
         appBar: EmptyAppBar(),
@@ -115,7 +108,7 @@ class _Loginpagestate extends State<LoginScreen> {
   }
 
   Widget _buildUserIdField() => TextFieldWidget(
-        hint: S.of(context)!.email,
+       // hint: S.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
         iconColor: Colors.black54,
@@ -128,7 +121,7 @@ class _Loginpagestate extends State<LoginScreen> {
       );
 
   Widget _buildPasswordField() => TextFieldWidget(
-        hint: S.of(context)!.password,
+        //hint: S.of(context)!.password,
         isObscure: true,
         padding: EdgeInsets.only(top: 16.0),
         icon: Icons.lock,
@@ -143,8 +136,8 @@ class _Loginpagestate extends State<LoginScreen> {
       child: TextButton(
           key: Key('user_forgot_password'),
           // padding: EdgeInsets.all(0.0),
-          child: Text(
-            S.of(_context)!.forgot_password,
+          child: Text('forgot'
+           // S.of(_context)!.forgot_password,
           ),
           onPressed: () =>
               context.read<AuthBloc>().forgotPassword()));
@@ -153,7 +146,9 @@ class _Loginpagestate extends State<LoginScreen> {
         key: Key('user_sign_button'),
         onPressed: () => context
             .read<AuthBloc>()
-            .add(LoginButtonPressed()), //.login(), //{_authBloc.login()},
-        child: Text(S.of(_context)!.sign_in),
-      ); //);
+            .add(LoginButtonPressed()), 
+        child: Text('signin'
+          //S.of(_context)!.sign_in
+          ),
+      );
 }

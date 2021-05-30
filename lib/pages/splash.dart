@@ -21,7 +21,7 @@ class _Splashpagestate extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // startTimer();
+     startTimer();
   }
 
   @override
@@ -31,7 +31,7 @@ class _Splashpagestate extends State<SplashScreen> {
     );
   }
 
-  /* startTimer() {
+  startTimer() {
     var _duration = Duration(milliseconds: 300);
     return Timer(_duration, navigate);
   }
@@ -43,5 +43,5 @@ class _Splashpagestate extends State<SplashScreen> {
     
       Navigator.of(context).pushReplacementNamed(AppsRoutes.login);
     
-  } */
+  }
 }

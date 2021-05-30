@@ -1,48 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:f_logs/f_logs.dart';
-
-import 'package:logging/logging.dart';
+import 'package:f_logs/f_logs.dart';
 
 import '../modules/account/models/user_model.dart';
 import '../utils/config.dart';
 import '../utils/helper.dart';
 import 'local/local_storage.dart';
-import 'network/rest_error_util.dart';
 import 'network/rest_services.dart';
 
 class AuthServices {
-  static final log = Logger('AuthBloc');
-  static const _API_ACCOUNT = 'account';
-
-  static const _PROFILE = 'profile';
-
-// POST changePassword
-  static const _API_ACCOUNT_CHANGE_PASSWORD = "account/change-password";
-
-//POST finishPasswordReset
-  static const _API_ACCOUNT_RESET_FINISH = "account/reset-password/finish";
-
-// POST requestPasswordReset
-  static const _API_ACCOUNT_RESET_INIT = "account/reset-password/init";
-
-// GET activateAccount
-  static const _API_ACTIVATE = "activate";
-
-// POST registerAccount
-  static const _API_REGISTER = "register";
-
-// GET getActiveProfiles
-  static const _API_PROFILE_INFO = "profile-info";
-
-// POST authorize
-//GET isAuthenticated
-  static const _API_USERS_AUTHENTICATE = "authenticate";
-
-// GET getAuthorities
-  static const _API_USERS_AUTHORITIES = "users/authorities";
-
+  /// Path authenticate,
+  /// Post authorize & Get isAuthorize
   static Future<bool> login(String _username, String _password,
       [bool _rememberMe = false]) async {
     var body = jsonEncode({
@@ -52,16 +21,16 @@ class AuthServices {
     });
     bool result = false;
     try {
-      await RestServices.post(_API_USERS_AUTHENTICATE, body)
-          .then((d) => _saveToken(d), onError: (e) => {log.info(e.toString())});
-     // if (await AppStorage.fetch(AUTH_TOKEN) != null) {
-        result = true;
-        // FLog.info(text: "Token saved!");
-     // }
+      await RestServices.post('authenticate', body).then((d) => _saveToken(d),
+          onError: (e) => {FLog.info(text: e.toString())});
+      // if (await AppStorage.fetch(AUTH_TOKEN) != null) {
+      result = true;
+      // FLog.info(text: "Token saved!");
+      // }
     } catch (e) {
-       result = true;
-      log.info('<><><><><>< '+e.toString());
-      // FLog.error(text: DioErrorUtil.handleError(e));
+      result = true;
+
+      FLog.error(text: e.toString());
     }
     return result;
   }
@@ -79,40 +48,51 @@ class AuthServices {
       return false;
   }
 
+  /// changePassword
   static changePassword(String currentPassword, String newPassword) async {
     var body =
         '{"currentPassword": "$currentPassword","newPassword": "$newPassword"}';
-    await RestServices.post(_API_ACCOUNT_CHANGE_PASSWORD, body);
+    await RestServices.post('account/change-password', body);
   }
 
+  /// Get getAuthorities
   static authorities() async {
-    return await RestServices.fetch(_API_USERS_AUTHORITIES);
+    return await RestServices.fetch('users/authorities');
   }
 
+  /// Path activate
+  /// GET activateAccount
   static activate(String key) async {
     var body = " ?key=";
-    await RestServices.post(_API_ACTIVATE + "?key=" + key, body);
+    await RestServices.post('activate' + "?key=" + key, body);
   }
 
+  /// Path account/reset-password/finish
+  /// POST finishPasswordReset
   static resetPasswordFinish(String key, String newPassword) async {
     var body = '{"key": "$key","newPassword": "$newPassword"}';
-    await RestServices.post(_API_ACCOUNT_RESET_FINISH, body);
+    await RestServices.post('account/reset-password/finish', body);
   }
 
+  /// Path account/reset-password/init
+  /// POST requestPasswordReset
   static resetPasswordInit(String email) async {
-    await RestServices.post(_API_ACCOUNT_RESET_INIT, email);
+    await RestServices.post('account/reset-password/init', email);
   }
 
+  /// Path profile-info
+  /// GET getActiveProfiles
   static profileInfo() async {
-    var data = await RestServices.fetch(_API_PROFILE_INFO);
+    var data = await RestServices.fetch('profile-info');
     User user = User.fromJson(json.decode(data.toString()));
     return user;
   }
 
+  /// registerAccount
   static register(
       String login, String email, String password, String langkey) async {
     var body = '{ $login, $email, $password, $langkey }';
-    await RestServices.post(_API_REGISTER, body);
+    await RestServices.post('register', body);
   }
 
   List<User> usersData(String data) {
@@ -121,8 +101,9 @@ class AuthServices {
     return lu;
   }
 
+  /// profile
   Future<User> userProfile() async {
-    String profile = await prefs(_PROFILE);
+    String profile = await prefs('profile');
     return User.fromJson(json.decode(profile));
   }
 }

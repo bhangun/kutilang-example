@@ -9,45 +9,40 @@ import 'package:logging/logging.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
-class AuthBloc
-    extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthState? state) : super(state!);
 
   final _controller = StreamController<AuthStatus>();
 
-
   @override
-  Stream<AuthState> mapEventToState(
-      AuthEvent event) async* {
+  Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is CheckAuthentication) {
-      FLog.info(text:'CheckAuthentication');
+      FLog.info(text: 'CheckAuthentication');
       yield (await _hasToken())
           ? AuthState.authenticated()
           : AuthState.unauthenticated();
     }
 
     if (event is LoginButtonPressed) {
-      FLog.info(text:'LoginButtonPressed');
+      FLog.info(text: 'LoginButtonPressed');
       yield (await processingLogin())
           ? AuthState.authenticated()
           : AuthState.unauthenticated();
     }
 
     if (event is LoggedIn) {
-      FLog.info(text:'LoggedIn');
+      FLog.info(text: 'LoggedIn');
       await _persistToken(event.token);
       yield AuthState.authenticated();
     }
 
     if (event is LoggedOut) {
-      FLog.info(text:'LoggedOut');
+      FLog.info(text: 'LoggedOut');
       await _deleteToken();
       yield AuthState.unauthenticated();
     }
 
-    if (event is ClickRememberMe) {
-  
-    }
+    if (event is ClickRememberMe) {}
   }
 
   @override
@@ -62,15 +57,12 @@ class AuthBloc
   Future<bool> processingLogin() async {
     bool v = await AuthServices.login(username, password, rememberMe);
     // if(v)NavigationServices.navigateTo(AppsRoutes.home);
-    FLog.info(text:'>>>>>>>>'+ v.toString());
+    FLog.info(text: '>>>>>>>>' + v.toString());
     return v;
   }
 
- 
-
-
   void setUserId(String value) {
-    FLog.info(text:'>>> ' + value);
+    FLog.info(text: '>>> ' + value);
     username = value;
     _validateUserEmail(value);
   }
@@ -165,7 +157,7 @@ class AuthBloc
   }
 
   Future gotoHome() async {
-    FLog.info( text:"Redirect to home!");
+    FLog.info(text: "Redirect to home!");
     if (loggedIn) NavigationServices.navigateTo(AppsRoutes.home);
   }
 
@@ -173,10 +165,10 @@ class AuthBloc
     try {
       NavigationServices.navigateTo(AppsRoutes.home);
       if (value) {
-        FLog.info(text:value);
+        FLog.info(text: value);
         // FLog.info(text: "Success login!");
         NavigationServices.navigateTo(AppsRoutes.home);
-       FLog.info(text:"------");
+        FLog.info(text: "------");
       } else if (value.toString().contains("Unauthorized")) {
         showError = true;
         errorMessage = "Username and password doesn't match";
@@ -196,18 +188,15 @@ class AuthBloc
     }
   }
 
-  
   Future forgotPassword() async {
     loading = true;
   }
 
   Future logout() async {
-    FLog.info(text:'<><><><:<:<:<:>');
+    FLog.info(text: '<><><><:<:<:<:>');
     AuthState.unauthenticated();
-    FLog.info(text:'<><><><logout:<:<:<:>');
+    FLog.info(text: '<><><><logout:<:<:<:>');
     //await AuthServices.logout();
-    
-    
   }
 
 /*   Future<String> _isRole(){
