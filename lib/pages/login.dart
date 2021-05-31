@@ -1,7 +1,9 @@
+import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kutilang_example/bloc/app_bloc/app.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
@@ -11,10 +13,10 @@ import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/generated/localization.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
+import 'package:kutilang_example/services/apps_routes.dart';
+import 'package:kutilang_example/services/navigation.dart';
 
 import '../utils/config.dart';
-import '../widgets/empty_app_bar_widget.dart';
-
 import '../widgets/textfield_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,6 +34,10 @@ class _Loginpagestate extends State<LoginScreen> {
 
   //form key
   final _formKey = GlobalKey<FormState>();
+
+  bool _isEyeOpen = true;
+
+  bool _isObscure = true;
 
   @override
   void initState() {
@@ -59,17 +65,38 @@ class _Loginpagestate extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        primary: true,
-        appBar: EmptyAppBar(),
-        body: BlocBuilder<AppBloc, AppState>(
-          builder: (_, state) {
-            return _buildBody(context);
-          },
-        ));
+    return BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          FLog.info(text: state.toString());
+          if (state.isAuthenticated) {
+            NavigationServices.navigateTo(AppsRoutes.home);
+          } else if (state.failure)
+            _showModal('failure');
+          else
+            _showModal('wrong');
+        },
+        child: Scaffold(
+            primary: true,
+            appBar: AppBar(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                elevation: 0,
+                actions: [
+                  IconButton(
+                    color: Theme.of(context).buttonColor,
+                    icon: Icon(Icons.brightness_6),
+                    onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                  ),
+                  IconButton(
+                    color: Theme.of(context).buttonColor,
+                    icon: Icon(Icons.flag),
+                    onPressed: () =>
+                        context.read<LocaleCubit>().switchLocale('EN'),
+                  ),
+                ]),
+            body: _body(context)));
   }
 
-  Material _buildBody(BuildContext context) {
+  Material _body(BuildContext context) {
     return Material(
         key: _formKey,
         child: MobileLayout(
@@ -84,20 +111,10 @@ class _Loginpagestate extends State<LoginScreen> {
                 height: 60,
               ),
               SizedBox(height: 24.0),
-              _buildUserIdField(),
-              _buildPasswordField(),
-              _buildForgotPasswordButton(),
-              _buildSignInButton(),
-              Row(children: [
-               /*  FloatingActionButton(
-                  child: const Icon(Icons.brightness_6),
-                  onPressed: () => context.read<ThemeCubit>().toggleTheme(),
-                ), */
-                FloatingActionButton(
-                    child: const Icon(Icons.flag), onPressed: () => showModal()
-                    //context.read<LocaleCubit>().switchLocale('EN'),
-                    ),
-              ]),
+              _userIdField(),
+              _passwordField(),
+              _forgotPasswordButton(),
+              _signInButton(),
             ],
           ),
           leftChild: SizedBox.expand(
@@ -110,7 +127,7 @@ class _Loginpagestate extends State<LoginScreen> {
         ));
   }
 
-  Widget _buildUserIdField() => TextFieldWidget(
+  Widget _userIdField() => TextFieldWidget(
         // hint: S.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
@@ -123,29 +140,39 @@ class _Loginpagestate extends State<LoginScreen> {
         errorText: context.read<AuthBloc>().userMessage,
       );
 
-  Widget _buildPasswordField() => TextFieldWidget(
+  Widget _passwordField() => TextFieldWidget(
         //hint: S.of(context)!.password,
-        isObscure: true,
+        isObscure: _isObscure,
         padding: EdgeInsets.only(top: 16.0),
         icon: Icons.lock,
         iconColor: Colors.black54,
         textController: _passwordController,
         focusNode: _passwordFocusNode,
         errorText: context.read<AuthBloc>().passwordMessage,
+        onEyePressed: () => _onEyePressed(),
+        isEyeOpen: _isEyeOpen,
+        showEye: true,
       );
 
-  Widget _buildForgotPasswordButton() => Align(
+  Widget _forgotPasswordButton() => Align(
       alignment: FractionalOffset.centerRight,
       child: TextButton(
           key: Key('user_forgot_password'),
           child: Text(AppLocalizations.of(context)!.forgotPassword!),
           onPressed: () => context.read<AuthBloc>().forgotPassword()));
 
-  Widget _buildSignInButton() => ElevatedButton(
+  Widget _signInButton() => ElevatedButton(
         key: Key('user_sign_button'),
         onPressed: () => context.read<AuthBloc>().add(LoginButtonPressed()),
         child: Text(AppLocalizations.of(context)!.sign_in!),
       );
+
+  _onEyePressed() {
+    setState(() {
+      _isEyeOpen = _isEyeOpen ? false : true;
+      _isObscure = _isEyeOpen ? true : false;
+    });
+  }
 
   showModal() {
     showModalBottomSheet<void>(
@@ -166,5 +193,26 @@ class _Loginpagestate extends State<LoginScreen> {
             ),
           );
         });
+  }
+
+  _showModal(text) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      action: SnackBarAction(
+        label: 'Action',
+        onPressed: () {
+          // Code to execute.
+        },
+      ),
+      content: Text(text),
+      duration: Duration(milliseconds: 1500),
+      width: 280.0, // Width of the SnackBar.
+      padding: EdgeInsets.symmetric(
+        horizontal: 8.0, // Inner padding for SnackBar content.
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    ));
   }
 }

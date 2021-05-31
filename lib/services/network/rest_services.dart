@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:f_logs/f_logs.dart';
 // import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/services/local/local_storage.dart';
 import 'package:kutilang_example/utils/config.dart';
@@ -55,7 +56,7 @@ class RestServices {
   static Future<dynamic> post(String uri, dynamic data) async {
     // try {
     final Response response = await _dio.post(uri, data: data);
-    //  FLog.info(text: uri + response.data);
+     FLog.info(text: uri + response.data);
     return response.data;
     /*  } catch (e) {
       FLog.error(text: e.toString());

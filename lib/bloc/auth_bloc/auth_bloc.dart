@@ -51,12 +51,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       /* processingLogin().then((value) =>
           value ? AuthState.authenticated() : AuthState.unauthenticated());
       FLog.info(text: '++++ LoginButtonPressed'); */
-      /* yield (await processingLogin())
+      yield (await processingLogin())
           ? AuthState.authenticated()
-          : AuthState.unauthenticated(); */
-          AuthServices.login(username, password, rememberMe).then((value) => value? gotoHome():'');
-     // processingLogin();
-      await gotoHome();
+          : AuthState.unauthenticated();
+        //  AuthServices.login(username, password, rememberMe).then((value) => value? gotoHome():'');
+     //processingLogin();
+      //await gotoHome();
     }
 
     if (event is LoggedIn) {

@@ -21,10 +21,10 @@ class AuthServices {
     try {
       await RestServices.post('authenticate', body).then((d) => _saveToken(d),
           onError: (e) => {FLog.info(text: e.toString())});
-      // if (await AppStorage.fetch(AUTH_TOKEN) != null) {
-      result = true;
-      // FLog.info(text: "Token saved!");
-      // }
+      if (await AppStorage.fetch(AUTH_TOKEN) != null) {
+        //result = true;
+        FLog.info(text: "Token saved!");
+      }
     } catch (e) {
       result = true;
 
