@@ -87,11 +87,9 @@ class _Loginpagestate extends State<LoginScreen> {
                     onPressed: () => context.read<ThemeCubit>().toggleTheme(),
                   ),
                   IconButton(
-                    color: Theme.of(context).buttonColor,
-                    icon: Icon(Icons.flag),
-                    onPressed: () =>
-                        context.read<LocaleCubit>().switchLocale('EN'),
-                  ),
+                      color: Theme.of(context).buttonColor,
+                      icon: Icon(Icons.flag),
+                      onPressed: () => _showLocales()),
                 ]),
             body: _body(context)));
   }
@@ -128,7 +126,7 @@ class _Loginpagestate extends State<LoginScreen> {
   }
 
   Widget _userIdField() => TextFieldWidget(
-        // hint: S.of(context)!.email,
+        hint: AppLocalizations.of(context)!.email,
         inputType: TextInputType.emailAddress,
         icon: Icons.person,
         iconColor: Colors.black54,
@@ -141,7 +139,7 @@ class _Loginpagestate extends State<LoginScreen> {
       );
 
   Widget _passwordField() => TextFieldWidget(
-        //hint: S.of(context)!.password,
+        hint: AppLocalizations.of(context)!.password,
         isObscure: _isObscure,
         padding: EdgeInsets.only(top: 16.0),
         icon: Icons.lock,
@@ -174,25 +172,28 @@ class _Loginpagestate extends State<LoginScreen> {
     });
   }
 
-  showModal() {
+  _showLocales() {
     showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
           return Container(
-            height: 200,
-            // color: Colors.amber,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              //mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.close))
-              ],
-            ),
-          );
+              height: 200,
+              child: ListView(
+                children: [
+                  _localeBtn('Bahasa', 'ID'),
+                  _localeBtn('English', 'EN'),
+                ],
+              ));
         });
+  }
+
+  _localeBtn(title, key) {
+    return TextButton(
+        child: Text(title), onPressed: () => _onLocalePressed(key));
+  }
+
+  _onLocalePressed(key) {
+    context.read<LocaleCubit>().switchLocale(key);
   }
 
   _showModal(text) {
