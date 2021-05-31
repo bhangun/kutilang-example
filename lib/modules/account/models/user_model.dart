@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class User extends Equatable {
   User(
@@ -83,7 +82,8 @@ class User extends Equatable {
   static const empty = null;
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props =>
+      [id, login!, firstName!, lastName!, email!, authorities!, langKey!];
 }
 
 class UserList {
@@ -102,7 +102,3 @@ class UserList {
     );
   }
 }
-
-/* final parsed = json.decode('data').cast<Map<String, dynamic>>();
-    List<User> _items = json.decode('data').cast<Map<String, dynamic>>().map<User>((json) => User.fromJson(json)).toList();
- */
