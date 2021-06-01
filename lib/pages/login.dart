@@ -13,6 +13,7 @@ import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/generated/localization.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
+import 'package:kutilang_example/modules/godummy/go_routes.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/services/navigation.dart';
 
@@ -81,6 +82,11 @@ class _Loginpagestate extends State<LoginScreen> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
                 actions: [
+                  IconButton(
+                    color: Theme.of(context).buttonColor,
+                    icon: Icon(Icons.brightness_6),
+                    onPressed: () => NavigationServices.navigateTo(GoRoutes.KoHome),
+                  ),
                   IconButton(
                     color: Theme.of(context).buttonColor,
                     icon: Icon(Icons.brightness_6),

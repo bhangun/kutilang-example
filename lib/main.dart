@@ -15,7 +15,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/app_bloc/app_state.dart';
-import 'package:logging/logging.dart';
 import 'bloc/app_bloc/app_bloc.dart';
 import 'bloc/auth_bloc/auth.dart';
 import 'bloc/locale_cubit.dart';
@@ -30,20 +29,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() {
+  // Initialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Register all module
   ModulesRegistry();
+
+  // Register observer config
   Bloc.observer = KutBlocObserver();
 
-  Logger.root.level = Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
-    print(
-        '${record.time}-(${record.level.name}) (${record.loggerName}): ${record.message} ${record.object}');
-  });
+  // Run main app
   runApp(KutilangApp());
 }
 
 class KutilangApp extends StatelessWidget {
-  final log = Logger('main');
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

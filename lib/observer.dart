@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io' show Platform;
 
 class KutBlocObserver extends BlocObserver {
-//final log = Logger('AuthBloc');
-
   checkPlatform() {
     if (Platform.isAndroid) {
       // Android-specific code
