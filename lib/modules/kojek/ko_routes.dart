@@ -7,8 +7,8 @@ import 'pages/kopay_home.dart';
 import 'pages/kosend_home.dart';
 import 'pages/koshop_home.dart';
 
-class GoRoutes {
-  GoRoutes._();
+class KoRoutes {
+  KoRoutes._();
 
   static const String koHome = '/ko/home';
   static const String kojekHome = '/ko/kojekHome';

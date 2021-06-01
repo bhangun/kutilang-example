@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/modules/godummy/pages/ko_chat.dart';
-import 'package:kutilang_example/modules/godummy/pages/ko_home.dart';
-import 'package:kutilang_example/modules/godummy/pages/ko_promo.dart';
-import 'package:kutilang_example/modules/godummy/widgets/capsule_indicator.dart';
+import 'package:kutilang_example/modules/kojek/pages/ko_chat.dart';
+import 'package:kutilang_example/modules/kojek/pages/ko_home.dart';
+import 'package:kutilang_example/modules/kojek/pages/ko_promo.dart';
+import 'package:kutilang_example/modules/kojek/widgets/capsule_indicator.dart';
 
 class KoMain extends StatefulWidget {
   KoMain({Key? key}) : super(key: key);
