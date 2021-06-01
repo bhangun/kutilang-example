@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/models/module.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
 
 import '../../utils/routes.dart';
@@ -13,14 +12,14 @@ class GoModule implements Module {
   @override
   pages() {
     return [
-      Page(title: 'User Detail', route: GoRoutes.KoHome),
-      Page(title: 'User Form', route: GoRoutes.KojekHome),
-      Page(title: 'User Form', route: GoRoutes.KoPayHome),
-      Page(title: 'User Form', route: GoRoutes.KoSendHome),
-      Page(title: 'User Form', route: GoRoutes.KoShopHome),
+      Page(title: 'User Detail', route: GoRoutes.koHome),
+      Page(title: 'User Form', route: GoRoutes.kojekHome),
+      Page(title: 'User Form', route: GoRoutes.koPayHome),
+      Page(title: 'User Form', route: GoRoutes.koSendHome),
+      Page(title: 'User Form', route: GoRoutes.koShopHome),
       Page(
           title: 'User List',
-          route: GoRoutes.KoMartHome,
+          route: GoRoutes.koMartHome,
           showInDrawer: true,
           showInHome: true)
     ];

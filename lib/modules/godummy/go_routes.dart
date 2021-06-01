@@ -10,19 +10,19 @@ import 'pages/koshop_home.dart';
 class GoRoutes {
   GoRoutes._();
 
-  static const String KoHome = '/go/home';
-  static const String KojekHome = '/go/KojekHome';
-  static const String KoPayHome = '/go/KoPayHome';
-  static const String KoShopHome = '/go/KoShopHome';
-  static const String KoMartHome = '/go/KoMartHome';
-  static const String KoSendHome = '/go/KoSendHome';
+  static const String koHome = '/ko/home';
+  static const String kojekHome = '/ko/kojekHome';
+  static const String koPayHome = '/ko/koPayHome';
+  static const String koShopHome = '/ko/koShopHome';
+  static const String koMartHome = '/ko/koMartHome';
+  static const String koSendHome = '/ko/koSendHome';
 
   static final routes = <String, WidgetBuilder>{
-    KoHome: (BuildContext context) => KoMain(),
-    KojekHome: (BuildContext context) => KoPayHome(),
-    KoPayHome: (BuildContext context) => KoMartHome(),
-    KoShopHome: (BuildContext context) => KojekHome(),
-    KoMartHome: (BuildContext context) => KoShopHome(),
-    KoSendHome: (BuildContext context) => KoSendHome(),
+    koHome: (BuildContext context) => KoMain(),
+    kojekHome: (BuildContext context) => KoPayHome(),
+    koPayHome: (BuildContext context) => KoMartHome(),
+    koShopHome: (BuildContext context) => KojekHome(),
+    koMartHome: (BuildContext context) => KoShopHome(),
+    koSendHome: (BuildContext context) => KoSendHome(),
   };
 }

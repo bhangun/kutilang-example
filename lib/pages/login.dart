@@ -85,7 +85,7 @@ class _Loginpagestate extends State<LoginScreen> {
                   IconButton(
                     color: Theme.of(context).buttonColor,
                     icon: Icon(Icons.brightness_6),
-                    onPressed: () => NavigationServices.navigateTo(GoRoutes.KoHome),
+                    onPressed: () => NavigationServices.navigateTo(GoRoutes.koHome),
                   ),
                   IconButton(
                     color: Theme.of(context).buttonColor,
