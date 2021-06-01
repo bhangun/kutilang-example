@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class KoHome extends StatelessWidget {
-  const KoHome({Key? key}) : super(key: key);
+class KoHome extends StatefulWidget {
+  KoHome({Key? key}) : super(key: key);
 
+  @override
+  _KoHomeState createState() => _KoHomeState();
+}
+
+class _KoHomeState extends State<KoHome> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -18,21 +23,25 @@ class KoHome extends StatelessWidget {
                   color: Colors.white),
               margin: EdgeInsets.only(top: 20),
               height: 900,
-              child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: 500,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _searchRow(),
-                          _headerRow(),
-                          _orderHistory(),
-                          //_starsOrder()
-                        ],
-                      ))));
+              child: Stack(children: [
+                SingleChildScrollView(
+                    controller: scrollController,
+                    child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: 500,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _searchRow(),
+                            _headerRow(),
+                            _orderHistory(),
+                            //_starsOrder()
+                          ],
+                        ))),
+                _bottomNav()
+              ]));
         });
   }
 
@@ -235,24 +244,60 @@ class KoHome extends StatelessWidget {
   }
 
   _bottomNav() {
-    return Container(
-        margin: EdgeInsets.fromLTRB(15, 0, 15, 30),
-        height: 100,
-        width: 400,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[300]!,
-                offset: Offset(
-                  2.0,
-                  2.0,
-                ),
-                blurRadius: 4.0,
-                spreadRadius: 0.5,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(50)),
-        child: Text('bottom'));
+    return DraggableScrollableSheet(
+        initialChildSize: 0.2,
+        minChildSize: 0.2,
+        maxChildSize: 1.0,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return SingleChildScrollView(
+              controller: scrollController,
+              child: Container(
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  height: 100,
+                  width: 400,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[300]!,
+                          offset: Offset(
+                            2.0,
+                            2.0,
+                          ),
+                          blurRadius: 4.0,
+                          spreadRadius: 0.5,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(50)),
+                  child: _bottomRowBtn()));
+        });
+  }
+
+  _bottomRowBtn() {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _bottomBtn('KoRide', Icons.electric_bike),
+          _bottomBtn('KoRide', Icons.food_bank),
+          _bottomBtn('KoRide', Icons.car_rental),
+          _bottomBtn('KoRide', Icons.mail),
+        ]);
+  }
+
+  _bottomBtn(label, icon, {Color color = Colors.green}) {
+    return Column(children: [
+      Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          height: 40,
+          width: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: color,
+          ),
+          child:
+              IconButton(iconSize: 20, onPressed: () => {}, icon: Icon(icon))),
+      Text(label)
+    ]);
   }
 }

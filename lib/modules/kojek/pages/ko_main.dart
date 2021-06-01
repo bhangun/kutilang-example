@@ -49,10 +49,11 @@ class _KoMainState extends State<KoMain> with SingleTickerProviderStateMixin {
   _tab(text, icon) {
     return Tab(
         icon: Row(children: [
-      Icon(icon, color: Colors.white),
+      Icon(icon, size: 20, color: Colors.white),
       Padding(
           padding: EdgeInsets.only(left: 5),
-          child: Text(text, style: TextStyle(color: Colors.white)))
+          child:
+              Text(text, style: TextStyle(fontSize: 13, color: Colors.white)))
     ]));
   }
 }
