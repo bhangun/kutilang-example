@@ -8,6 +8,10 @@ class KoHome extends StatefulWidget {
 }
 
 class _KoHomeState extends State<KoHome> {
+  bool _isOpen = false;
+  double _bottomHeight = 100;
+  double _bottomWidth = 400;
+
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -37,7 +41,10 @@ class _KoHomeState extends State<KoHome> {
                             _searchRow(),
                             _headerRow(),
                             _orderHistory(),
-                            //_starsOrder()
+                            _starsOrder(),
+                            _others(),
+                            _others(),
+                            _others()
                           ],
                         ))),
                 _bottomNav()
@@ -199,25 +206,26 @@ class _KoHomeState extends State<KoHome> {
   }
 
   _starsOrder() {
-    return Flexible(
+    return /* Flexible(
         flex: 1,
         fit: FlexFit.loose,
-        child: Column(
+        child: */
+        Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Stars for your orders, please'),
-              /* SizedBox.expand(
-                  child:  */
-              SingleChildScrollView(
-                  child: Container(
-                      child: Row(
+          Text('Stars for your orders, please'),
+          SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                  child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [_driver(), _driver(), _driver(), _driver()],
               )))
-              //)
-            ]));
+          //)
+        ]) //)
+        ;
   }
 
   _driver() {
@@ -227,7 +235,7 @@ class _KoHomeState extends State<KoHome> {
       height: 150,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
+          color: Colors.greenAccent,
           boxShadow: [
             BoxShadow(
               color: Colors.grey[300]!,
@@ -245,16 +253,28 @@ class _KoHomeState extends State<KoHome> {
 
   _bottomNav() {
     return DraggableScrollableSheet(
-        initialChildSize: 0.2,
-        minChildSize: 0.2,
+        initialChildSize: 0.23,
+        minChildSize: 0.23,
         maxChildSize: 1.0,
         builder: (BuildContext context, ScrollController scrollController) {
+          scrollController.addListener(() {
+            setState(() {
+              _isOpen = _isOpen ? false : true;
+              if (_isOpen) {
+                _bottomHeight = 1000;
+                _bottomWidth = 500;
+              } else {
+                _bottomHeight = 100;
+                _bottomWidth = 400;
+              }
+            });
+          });
           return SingleChildScrollView(
               controller: scrollController,
               child: Container(
-                  margin: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                  height: 100,
-                  width: 400,
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  height: _bottomHeight,
+                  width: _bottomWidth,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -268,9 +288,16 @@ class _KoHomeState extends State<KoHome> {
                           spreadRadius: 0.5,
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(50)),
+                      borderRadius: _borderRadius()),
                   child: _bottomRowBtn()));
         });
+  }
+
+  _borderRadius() {
+    return _isOpen
+        ? BorderRadius.only(
+            topLeft: Radius.circular(18), topRight: Radius.circular(18))
+        : BorderRadius.circular(50);
   }
 
   _bottomRowBtn() {
@@ -299,5 +326,18 @@ class _KoHomeState extends State<KoHome> {
               IconButton(iconSize: 20, onPressed: () => {}, icon: Icon(icon))),
       Text(label)
     ]);
+  }
+
+  _others() {
+    return Container(
+        margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        width: 400,
+        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Color.fromARGB(255, 26, 129, 160),
+        ),
+        child:  Text('')
+        );
   }
 }
