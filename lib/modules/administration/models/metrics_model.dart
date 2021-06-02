@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 class Data {
   final dynamic min;
@@ -22,12 +21,7 @@ class Health {
       required this.histograms,
       required this.meters,
       required this.timers})
-      : assert(version != null),
-        assert(gauges != null),
-        assert(counters != null),
-        assert(histograms != null),
-        assert(meters != null),
-        assert(timers != null);
+     ;
 
   factory Health.fromJson(Map<String, dynamic> json) {
     return Health(
@@ -197,83 +191,7 @@ class Gauges {
       this.jvmTerminatedCount,
       this.jvmTimedWaitingCount,
       this.jvmWaitingCount})
-      : assert(activeConn != null),
-        assert(idleConn != null),
-        assert(maxConn != null),
-        assert(minConn != null),
-        assert(pendingConn != null),
-        assert(totalConn != null),
-        assert(jvmName != null),
-        assert(jvmUptime != null),
-        assert(jvmVendor != null),
-        assert(jvmCapacity != null),
-        assert(jvmDirectCount != null),
-        assert(jvmUsed != null),
-        assert(jvmMappedCapacity != null),
-        assert(jvmMappedCount != null),
-        assert(jvmMappedUsed != null),
-        assert(jvmFiles != null),
-        assert(jvmGarbageMarkSweepCount != null),
-        assert(jvmGarbageMarkSweepTime != null),
-        assert(jvmGarbageScavengeCount != null),
-        assert(jvmScavengeTime != null),
-        assert(jvmHeapCommited != null),
-        assert(jvmHeapInit != null),
-        assert(jvmHeapMax != null),
-        assert(jvmHeapUsage != null),
-        assert(jvmHeapUsed != null),
-        assert(jvmNonHeapCommited != null),
-        assert(jvmNonHeapInit != null),
-        assert(jvmNonHeapMax != null),
-        assert(jvmNonHeapUsage != null),
-        assert(jvmNonHeapUsed != null),
-        assert(jvmCodeCacheCommited != null),
-        assert(jvmCodeCacheInit != null),
-        assert(jvmCodeCacheMax != null),
-        assert(jvmCodeCacheUsage != null),
-        assert(jvmCodeCacheUsed != null),
-        assert(jvmCompClassSpaceCommited != null),
-        assert(jvmCompClassSpaceInit != null),
-        assert(jvmCompClassSpaceMax != null),
-        assert(jvmCompClassSpaceUsage != null),
-        assert(jvmCompClassSpaceUsed != null),
-        assert(jvmMetaspaceCommited != null),
-        assert(jvmMetaspaceInit != null),
-        assert(jvmMetaspaceMax != null),
-        assert(jvmMetaspaceUsage != null),
-        assert(jvmMetaspaceUsed != null),
-        assert(jvmEdenSpaceCommited != null),
-        assert(jvmEdenSpaceInit != null),
-        assert(jvmEdenSpaceMax != null),
-        assert(jvmEdenSpaceUsage != null),
-        assert(jvmEdenSpaceUsed != null),
-        assert(jvmEdenSpaceUsedAfterGc != null),
-        assert(jvmOldGenCommited != null),
-        assert(jvmOldGenInit != null),
-        assert(jvmOldGenMax != null),
-        assert(jvmOldGenUsage != null),
-        assert(jvmOldGenUsed != null),
-        assert(jvmOldGenUsedAfterGc != null),
-        assert(jvmSurvivorCommited != null),
-        assert(jvmSurvivorInit != null),
-        assert(jvmSurvivorMax != null),
-        assert(jvmSurvivorUsage != null),
-        assert(jvmSurvivorUsed != null),
-        assert(jvmSurvivorUseAfterGc != null),
-        assert(jvmTotalCommited != null),
-        assert(jvmTotalInit != null),
-        assert(jvmTotalMax != null),
-        assert(jvmTotalUsed != null),
-        assert(jvmBlockedCount != null),
-        assert(jvmThreadsCount != null),
-        assert(jvmDaemonCount != null),
-        assert(jvmDeadlockCount != null),
-        assert(jvmDeadlock != null),
-        assert(jvmNewCount != null),
-        assert(jvmRunnableCount != null),
-        assert(jvmTerminatedCount != null),
-        assert(jvmTimedWaitingCount != null),
-        assert(jvmWaitingCount != null);
+     ;
 
   factory Gauges.fromJson(Map<String, dynamic> json) {
     return Gauges(
@@ -397,8 +315,7 @@ class Histograms {
   const Histograms({
     required this.connection,
     required this.usage,
-  })  : assert(connection != null),
-        assert(usage != null);
+  }) ;
 
   factory Histograms.fromJson(Map<String, dynamic> json) {
     return Histograms(
@@ -486,16 +403,7 @@ class Meters {
     required this.other,
     required this.serverError,
     required this.timeouts,
-  })  : assert(connTimeoutRate != null),
-        assert(errors != null),
-        assert(badRequest != null),
-        assert(created != null),
-        assert(noContent != null),
-        assert(notFound != null),
-        assert(ok != null),
-        assert(other != null),
-        assert(serverError != null),
-        assert(timeouts != null);
+  }) ;
 
   factory Meters.fromJson(Map<String, dynamic> json) {
     return Meters(
@@ -538,12 +446,7 @@ class Meter {
       required this.m5,
       required this.mean,
       required this.units})
-      : assert(count != null),
-        assert(m15 != null),
-        assert(m1 != null),
-        assert(m5 != null),
-        assert(mean != null),
-        assert(units != null);
+      ;
 
   factory Meter.fromJson(Map<String, dynamic> json) {
     return Meter(
@@ -597,25 +500,7 @@ class Timers {
       required this.getAuth,
       required this.getUser,
       required this.updateUser})
-      : assert(wait != null),
-        assert(request != null),
-        assert(activateAccount != null),
-        assert(changePass != null),
-        assert(finishPass != null),
-        assert(getAccount != null),
-        assert(isAuth != null),
-        assert(registerAccount != null),
-        assert(reqPassReset != null),
-        assert(saveAccount != null),
-        assert(changeLevel != null),
-        assert(getList != null),
-        assert(authorize != null),
-        assert(createUser != null),
-        assert(deleteUser != null),
-        assert(getAllUser != null),
-        assert(getAuth != null),
-        assert(getUser != null),
-        assert(updateUser != null);
+     ;
 
   factory Timers.fromJson(Map<String, dynamic> json) {
     return Timers(
@@ -687,23 +572,7 @@ class Timer {
       required this.meanRate,
       required this.durationUnits,
       required this.rateUnits})
-      : assert(count != null),
-        assert(max != null),
-        assert(mean != null),
-        assert(min != null),
-        assert(p50 != null),
-        assert(p75 != null),
-        assert(p95 != null),
-        assert(p98 != null),
-        assert(p99 != null),
-        assert(p999 != null),
-        assert(stddev != null),
-        assert(m15Rate != null),
-        assert(m1Rate != null),
-        assert(m5Rate != null),
-        assert(meanRate != null),
-        assert(durationUnits != null),
-        assert(rateUnits != null);
+      ;
 
   factory Timer.fromJson(Map<String, dynamic> json) {
     return Timer(

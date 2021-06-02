@@ -4,10 +4,10 @@ import 'package:biometric_storage/biometric_storage.dart';
 class AppStorage {
   static final String baseName = 'default';
 
-  BiometricStorageFile? _authStorage;
+   BiometricStorageFile? authStorage;
   static BiometricStorageFile? _storage;
-  BiometricStorageFile? _customPrompt;
-  BiometricStorageFile? _noConfirmation;
+  static BiometricStorageFile? customPrompt;
+   BiometricStorageFile? noConfirmation;
 
   Future<CanAuthenticateResponse> _checkAuthenticate() async {
     final response = await BiometricStorage().canAuthenticate();
@@ -25,7 +25,7 @@ class AppStorage {
         authenticate == CanAuthenticateResponse.success ||
             authenticate == CanAuthenticateResponse.statusUnknown;
     if (supportsAuthenticated) {
-      _authStorage = await BiometricStorage().getStorage(
+      authStorage = await BiometricStorage().getStorage(
           '${baseName}_authenticated',
           options: StorageFileInitOptions(
               authenticationValidityDurationSeconds: 30));
@@ -36,7 +36,7 @@ class AppStorage {
               authenticationRequired: false,
             ));
     if (supportsAuthenticated) {
-      _customPrompt = await BiometricStorage().getStorage(
+      customPrompt = await BiometricStorage().getStorage(
           '${baseName}_customPrompt',
           options:
               StorageFileInitOptions(authenticationValidityDurationSeconds: 30),
@@ -46,7 +46,7 @@ class AppStorage {
             description: 'Custom description',
             negativeButton: 'Nope!',
           ));
-      _noConfirmation = await BiometricStorage().getStorage(
+      noConfirmation = await BiometricStorage().getStorage(
           '${baseName}_customPrompt',
           options:
               StorageFileInitOptions(authenticationValidityDurationSeconds: 30),

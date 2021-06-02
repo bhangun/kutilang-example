@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import 'app_event.dart';
@@ -8,7 +7,6 @@ import 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc(AppState state) : super(state);
 
-  @override
   AppState get initialState {
     return AppState.initializing();
   }

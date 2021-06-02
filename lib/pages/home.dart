@@ -3,14 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
-import 'package:kutilang_example/services/navigation.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
 
 // import '../bloc/authentication/authentication_bloc.dart';
 
 import '../widgets/appbar_widget.dart';
-import '../widgets/drawer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

@@ -9,11 +9,11 @@ class KutBotomBar extends StatefulWidget {
 }
 
 class _KutBotomBarState extends State<KutBotomBar> {
-  final _appBloc = null;
+  /* final _appBloc = null;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold); */
+  /* static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
       style: optionStyle,
@@ -26,14 +26,14 @@ class _KutBotomBarState extends State<KutBotomBar> {
       'Index 2: School',
       style: optionStyle,
     ),
-  ];
+  ]; */
 
-  void _onItemTapped(int index) {
+  /* void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       _appBloc.goTo(_selectedIndex);
     });
-  }
+  } */
   @override
   Widget build(BuildContext context) {
     return Container(

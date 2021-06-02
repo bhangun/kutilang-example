@@ -171,7 +171,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     FLog.info(text: "Redirect to home!");
     NavigationServices.navigateTo(AppsRoutes.home);
   }
-
+/* 
   void _loggedin(value) {
     try {
       NavigationServices.navigateTo(AppsRoutes.home);
@@ -197,7 +197,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       loading = false;
       // FLog.info(text:e.toString());
     }
-  }
+  } */
 
   Future forgotPassword() async {
     loading = true;

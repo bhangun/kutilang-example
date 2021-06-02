@@ -7,8 +7,8 @@ class CommonDrawer extends StatefulWidget {
 }
 
 class _CommonDrawerState extends State<CommonDrawer> {
-  String _firstName = '';
-  String _email = '';
+  //String _firstName = '';
+  //String _email = '';
 
   //UserStore _userBloc = UserStore();
 

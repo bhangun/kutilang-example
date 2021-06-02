@@ -78,8 +78,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   test: any 
   build_runner: ^2.0.4
   build: ^2.0.1

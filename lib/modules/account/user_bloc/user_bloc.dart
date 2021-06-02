@@ -4,7 +4,6 @@ import 'package:kutilang_example/modules/account/models/user_model.dart';
 import 'package:kutilang_example/modules/account/services/user_services.dart';
 import 'package:kutilang_example/utils/config.dart';
 import 'package:kutilang_example/utils/helper.dart';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import 'user_event.dart';
@@ -17,7 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   //UserBloc(UserState state) : super(state);
 
-  @override
+  
   UserState get initialState {
     return UserState.initializing();
   }
@@ -69,14 +68,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
 
     if (event is FetchUser) {
-      String token = await prefs(TOKEN);
+      //String token = await prefs(TOKEN);
       var response = await UserServices.user(API_USER + event.id.toString());
       // User user =User.fromJson(json.decode(response));
       yield state.copyWith(user: response);
     }
 
     if (event is SaveUser) {
-      var response = await UserServices.createUser(event.user);
+     // var response = await UserServices.createUser(event.user);
     }
   }
 
@@ -113,9 +112,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     //  removePrefs(TOKEN);
   }
 
-  Future<void> _persistToken(String token) async {
+/*   Future<void> _persistToken(String token) async {
     setPrefs(TOKEN, token);
-  }
+  } */
 
   Future<bool> _hasToken() async {
     bool _isTrue = false;

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
-import '../../../widgets/alert_widget.dart';
 import '../../../widgets/appbar_widget.dart';
-import '../../../widgets/global_methods.dart';
 import '../../../widgets/progress_indicator_widget.dart';
 
 class UserList extends StatefulWidget {

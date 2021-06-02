@@ -1,7 +1,5 @@
 // import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/modules/account/services/user_routes.dart';
-import 'package:kutilang_example/modules/account/services/user_services.dart';
-import 'package:kutilang_example/services/auth_jwt_services.dart';
 import 'package:kutilang_example/services/navigation.dart';
 
 import 'package:kutilang_example/modules/account/models/user_model.dart';
@@ -111,14 +109,14 @@ class AdminStore {
 
 
   void count(List<User> list) {
-    if (list != null) {
+    //if (list != null) {
       totalUser = list.length;
       islistEmpty = false;
       showError = false;
-    } else {
+    /* } else {
       showError = true;
       errorMessage = 'Data Empty';
-    }
+    } */
   }
 
   

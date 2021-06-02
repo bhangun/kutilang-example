@@ -53,7 +53,7 @@ class AuthServices {
 
   static bool _saveToken(token) {
     String _token = token['id_token'];
-    if (_token != null) {
+    if (_token != '') {
       AppStorage.put(AUTH_TOKEN, _token);
       return true;
     } else

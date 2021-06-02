@@ -1,5 +1,4 @@
 import 'package:kutilang_example/modules/account/models/user_model.dart';
-import 'package:meta/meta.dart';
 
 
 class AppState {

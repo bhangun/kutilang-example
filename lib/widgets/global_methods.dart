@@ -36,9 +36,9 @@ Widget header(String accountName,String accountEmail,String imgPath) =>
  // General Methods:-----------------------------------------------------------
   showErrorMessage(BuildContext context, String message) {
     Future.delayed(Duration(milliseconds: 0), () {
-      if (message != null) {
+     /*  if (message != null) {
         
-      }
+      } */
     });
 
     return Container();

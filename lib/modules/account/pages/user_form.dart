@@ -3,9 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/modules/account/user_bloc/user.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
 
-import '../../../widgets/alert_widget.dart';
-import '../../../widgets/global_methods.dart';
-import '../../../widgets/progress_indicator_widget.dart';
 import '../models/user_model.dart';
 
 class UserForm extends StatefulWidget {
@@ -17,7 +14,7 @@ class UserForm extends StatefulWidget {
 }
 
 class _UserFormState extends State<UserForm> {
-  bool _activated = false;
+ // bool _activated = false;
   final _username = TextEditingController();
   final _firstname = TextEditingController();
   final _lastname = TextEditingController();
@@ -104,14 +101,14 @@ class _UserFormState extends State<UserForm> {
     );
   }
 
-  _buildForm() {
+  /* _buildForm() {
     return SafeArea(
         child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             children: _buildListChild()));
-  }
+  } */
 
-  _buildListChild() {
+  /* _buildListChild() {
     return <Widget>[
       SizedBox(height: 120.0),
       TextField(
@@ -152,5 +149,5 @@ class _UserFormState extends State<UserForm> {
           onPressed: () {}
       ), */
     ];
-  }
+  } */
 }

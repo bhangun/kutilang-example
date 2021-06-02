@@ -2,14 +2,12 @@ import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kutilang_example/bloc/app_bloc/app.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
 import 'package:kutilang_example/bloc/locale_cubit.dart';
 
-import 'package:kutilang_example/generated/i18n.dart';
 import 'package:kutilang_example/generated/localization.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
@@ -84,7 +82,7 @@ class _Loginpagestate extends State<LoginScreen> {
                 actions: [
                   IconButton(
                     color: Theme.of(context).buttonColor,
-                    icon: Icon(Icons.brightness_6),
+                    icon: Icon(Icons.pedal_bike),
                     onPressed: () => NavigationServices.navigateTo(KoRoutes.koHome),
                   ),
                   IconButton(

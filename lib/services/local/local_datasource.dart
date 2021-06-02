@@ -1,17 +1,18 @@
-import 'package:kutilang_example/services/local/local_db_constants.dart';
+/* import 'package:kutilang_example/services/local/local_db_constants.dart';
 import 'package:sembast/sembast.dart';
-import '../../models/app_data.dart';
 import 'local_database.dart';
-
+ */
 
 class AppDataSource {
   // A Store with int keys and Map<String, dynamic> values.
   // This Store acts like a persistent map, values of which are Flogs objects converted to Map
-  static final _appsStore = intMapStoreFactory.store(DBConstants.STORE_NAME);
+
+ // static final _appsStore = intMapStoreFactory.store(DBConstants.STORE_NAME);
 
   // Private getter to shorten the amount of code needed to get the
   // singleton instance of an opened database.
-  static Future<Database> get _db async => await AppDatabase.instance.database;
+  
+  //static Future<Database> get _db async => await AppDatabase.instance.database;
 
   // Singleton instance
   static final AppDataSource _singleton = AppDataSource._();

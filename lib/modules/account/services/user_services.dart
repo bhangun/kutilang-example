@@ -19,12 +19,12 @@ class UserServices {
   static const API_USER = "users/";
 
    // Regex for acceptable logins
-  static final String LOGIN_REGEX = "^(?>[a-zA-Z0-9!\$${'&'}*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)\$";
+  static final String loginRegex = "^(?>[a-zA-Z0-9!\$${'&'}*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)\$";
 
   static regex(String login){
     // Iterable<RegExpMatch> matches;
     try{
-    RegExp exp = new RegExp(LOGIN_REGEX);
+    RegExp exp = new RegExp(loginRegex);
     return exp.stringMatch(login);
      // if () return login;
     }catch(e){

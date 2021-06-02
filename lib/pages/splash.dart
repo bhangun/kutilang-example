@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/services/local/local_datasource.dart';
-import 'package:kutilang_example/services/local/local_storage.dart';
 
 import '../utils/config.dart';
 

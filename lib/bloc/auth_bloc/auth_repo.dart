@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'auth_bloc.dart';
-import 'auth_event.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
@@ -59,21 +56,19 @@ class AuthRepository {
     // dispatch(LoggedOut());
   }
 
-  Future<void> _deleteToken() async {
+  /* Future<void> _deleteToken() async {
     //removePrefs(TOKEN);
-  }
+  } */
 
-  Future<void> _persistToken(String token) async {
-    //setPrefs(TOKEN,token);
-  }
 
-  Future<bool> _hasToken() async {
+
+  /* Future<bool> _hasToken() async {
     bool _isTrue = false;
     //prefs(TOKEN).then((v)=> _isTrue=v.isNotEmpty);
     return _isTrue;
-  }
+  } */
 
-  Future<String> _login(
+  /* Future<String> _login(
       String username, String password, bool rememberMe) async {
     var body = jsonEncode(
         {"username": username, "password": password, "rememberMe": rememberMe});
@@ -83,5 +78,5 @@ class AuthRepository {
     } catch (e) {
       return e.toString();
     }
-  }
+  } */
 }
