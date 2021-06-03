@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:f_logs/f_logs.dart';
-// import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/services/local/local_storage.dart';
+import 'package:kutilang_example/services/local/database_services.dart';
 import 'package:kutilang_example/utils/config.dart';
 import 'package:logging/logging.dart';
 
@@ -19,7 +18,7 @@ class RestServices {
         onRequest: (RequestOptions options,
             RequestInterceptorHandler requestHandler) async {
           try {
-            String? token = (await AppStorage.fetch(TOKEN))!;
+            String? token = (await DatabaseServices.db.fetchToken());
             options.headers["Authorization"] = "Bearer " + token;
           } catch (e) {
             log.info(options.headers.toString());

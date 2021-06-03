@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kutilang_example">
+    package="tech.kays.kutilang_example">
    <application
         android:label="kutilang_example"
         android:icon="@mipmap/ic_launcher">

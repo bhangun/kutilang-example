@@ -78,7 +78,7 @@ static ThemeData darkTheme() {
 }
 
 static ThemeData lightTheme() {
-  Color primaryColor = MatThemeColors.lime[900]!;
+  Color primaryColor = MatThemeColors.green[600]!;
   //Color(0xFFB00020);
   Color secondaryColor = MatThemeColors.lime[100]!;
   final ColorScheme colorScheme = const ColorScheme.light().copyWith(

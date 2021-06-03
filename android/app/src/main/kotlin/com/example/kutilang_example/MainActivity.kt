@@ -1,4 +1,4 @@
-package com.example.kutilang_example
+package tech.kays.kutilang_example
 
 import io.flutter.embedding.android.FlutterActivity
 

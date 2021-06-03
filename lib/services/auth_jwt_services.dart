@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 
-import '../utils/config.dart';
-import 'local/local_storage.dart';
+//import '../utils/config.dart';
+import 'local/database_services.dart';
+//import 'local/local_storage.dart';
 import 'network/rest_services.dart';
 
 class AuthServices {
@@ -34,11 +35,11 @@ class AuthServices {
     try {
       await RestServices.post('authenticate', body).then((d) => _saveToken(d),
           onError: (e) => {FLog.info(text: e.toString())});
-      if (await AppStorage.fetch(AUTH_TOKEN) != null) {
+      /* if (await DatabaseServices.db.fetchToken()!='') {
         //result = true;
         _controller.add(AuthStatus.authenticated);
         FLog.info(text: "Token saved!");
-      }
+      } */
     } catch (e) {
       result = true;
 
@@ -48,13 +49,16 @@ class AuthServices {
   }
 
   static void logout() {
-    AppStorage.delete(AUTH_TOKEN);
+    FLog.debug(text: 'logout');
+   // AppStorage.delete(AUTH_TOKEN);
+   DatabaseServices.db.deleteToken();
   }
 
   static bool _saveToken(token) {
     String _token = token['id_token'];
     if (_token != '') {
-      AppStorage.put(AUTH_TOKEN, _token);
+      DatabaseServices.db.token(_token);
+      //AppStorage.put(AUTH_TOKEN, _token);
       return true;
     } else
       return false;

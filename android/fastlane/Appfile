@@ -1,0 +1,2 @@
+json_key_file("/Users/bhangun/workmy/My-Keystore/pc-api-5236310814806062092-657-211575def2c7.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("tech.kays.kutilang_example") # e.g. tech.kays
