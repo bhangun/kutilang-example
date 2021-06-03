@@ -8,9 +8,7 @@ class KoHome extends StatefulWidget {
 }
 
 class _KoHomeState extends State<KoHome> {
-  bool _isOpen = false;
-  double _bottomHeight = 100;
-  double _bottomWidth = 400;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class _KoHomeState extends State<KoHome> {
                             _others()
                           ],
                         ))),
-                _bottomNav()
+                //_bottomNav()
               ]));
         });
   }
@@ -251,82 +249,6 @@ class _KoHomeState extends State<KoHome> {
     );
   }
 
-  _bottomNav() {
-    return DraggableScrollableSheet(
-        initialChildSize: 0.23,
-        minChildSize: 0.23,
-        maxChildSize: 1.0,
-        builder: (BuildContext context, ScrollController scrollController) {
-          scrollController.addListener(() {
-            setState(() {
-              _isOpen = _isOpen ? false : true;
-              if (_isOpen) {
-                _bottomHeight = 1000;
-                _bottomWidth = 500;
-              } else {
-                _bottomHeight = 100;
-                _bottomWidth = 400;
-              }
-            });
-          });
-          return SingleChildScrollView(
-              controller: scrollController,
-              child: Container(
-                  margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  height: _bottomHeight,
-                  width: _bottomWidth,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[300]!,
-                          offset: Offset(
-                            2.0,
-                            2.0,
-                          ),
-                          blurRadius: 4.0,
-                          spreadRadius: 0.5,
-                        ),
-                      ],
-                      borderRadius: _borderRadius()),
-                  child: _bottomRowBtn()));
-        });
-  }
-
-  _borderRadius() {
-    return _isOpen
-        ? BorderRadius.only(
-            topLeft: Radius.circular(18), topRight: Radius.circular(18))
-        : BorderRadius.circular(50);
-  }
-
-  _bottomRowBtn() {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _bottomBtn('KoRide', Icons.electric_bike),
-          _bottomBtn('KoRide', Icons.food_bank),
-          _bottomBtn('KoRide', Icons.car_rental),
-          _bottomBtn('KoRide', Icons.mail),
-        ]);
-  }
-
-  _bottomBtn(label, icon, {Color color = Colors.green}) {
-    return Column(children: [
-      Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: color,
-          ),
-          child:
-              IconButton(iconSize: 20, onPressed: () => {}, icon: Icon(icon))),
-      Text(label)
-    ]);
-  }
 
   _others() {
     return Container(
