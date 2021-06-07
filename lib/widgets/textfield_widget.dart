@@ -66,7 +66,7 @@ class TextFieldWidget extends StatelessWidget {
             icon: this.isIcon ? Icon(this.icon, color: iconColor) : null),
       ),
       showEye
-          ? IconButton(
+          ? IconButton(splashRadius: 15,
             color: Theme.of(context).buttonColor,
               onPressed: onEyePressed,
               icon: Icon(isEyeOpen! ? Icons.visibility : Icons.visibility_off))

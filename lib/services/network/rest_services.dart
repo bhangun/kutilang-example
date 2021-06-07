@@ -13,7 +13,12 @@ class RestServices {
     ..options.connectTimeout = TIMEOUT_CONNECTION
     ..options.receiveTimeout = TIMEOUT_RECEIVE
     ..interceptors.clear()
-    ..interceptors.add(LogInterceptor(responseBody: true))
+    ..interceptors.add(LogInterceptor(
+        requestBody: true,
+        request: false,
+        requestHeader: false,
+        responseHeader: true,
+        responseBody: true))
     ..interceptors.add(InterceptorsWrapper(
         onRequest: (RequestOptions options,
             RequestInterceptorHandler requestHandler) async {
@@ -55,7 +60,7 @@ class RestServices {
   static Future<dynamic> post(String uri, dynamic data) async {
     // try {
     final Response response = await _dio.post(uri, data: data);
-     FLog.info(text: uri + response.data);
+    FLog.info(text: uri + response.data);
     return response.data;
     /*  } catch (e) {
       FLog.error(text: e.toString());

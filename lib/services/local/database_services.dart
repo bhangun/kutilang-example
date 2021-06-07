@@ -1,3 +1,4 @@
+//import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/models/app_data.dart';
 import 'package:sembast/sembast.dart';
 
@@ -24,6 +25,7 @@ class DatabaseServices {
   static DatabaseServices get db => _singleton;
 
   Future<int> token(String token) async {
+    print('>>>>>>>>>>>>>>>>>>'+ token);
     //return await insert(AppData(id:'id_token',title: 'token',message: token));
     return await _appsStore.add(await _db, {'id_token': token});
   }
@@ -36,8 +38,9 @@ class DatabaseServices {
 
   Future<String> fetchToken() async {
     //final finder = Finder(filter: Filter.byKey(key));
-    var token = fetch('id_token').toString();
-    return token;
+    Future<Map<String, Object?>> token = fetch('id_token');
+    print('++++++++++>'+ token.toString());
+    return '';
   }
 
   // DB functions:--------------------------------------------------------------
@@ -46,11 +49,20 @@ class DatabaseServices {
   }
 
   Future<Map<String, Object?>> fetch(String key) async {
+    print('>>>>>>>>>'+key);
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
     final finder = Finder(filter: Filter.byKey(key));
-    Map<String, Object?> value =
-        (await _appsStore.findFirst(await _db, finder: finder))!.value;
+    Map<String, Object?>? value ;
+    print('?????????>'+finder.toString());
+    try{
+        value =(await _appsStore.findFirst(await _db, finder: finder))!.value;
+        print('<><><><><><>'+value.toString());
+    }catch(e){
+      print(e.toString());
+      value = {'id_token':''};
+    }
+    print('<><><2><><><>'+value.toString());
     return value;
   }
 

@@ -81,16 +81,20 @@ class _Loginpagestate extends State<LoginScreen> {
                 elevation: 0,
                 actions: [
                   IconButton(
+                    splashRadius: 15,
                     color: Theme.of(context).buttonColor,
                     icon: Icon(Icons.pedal_bike),
-                    onPressed: () => NavigationServices.navigateTo(KoRoutes.koHome),
+                    onPressed: () =>
+                        NavigationServices.navigateTo(KoRoutes.koHome),
                   ),
                   IconButton(
+                    splashRadius: 15,
                     color: Theme.of(context).buttonColor,
                     icon: Icon(Icons.brightness_6),
                     onPressed: () => context.read<ThemeCubit>().toggleTheme(),
                   ),
                   IconButton(
+                      splashRadius: 15,
                       color: Theme.of(context).buttonColor,
                       icon: Icon(Icons.flag),
                       onPressed: () => _showLocales()),

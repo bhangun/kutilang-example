@@ -55,6 +55,7 @@ class AuthServices {
   }
 
   static bool _saveToken(token) {
+    FLog.info(text: token.toString());
     String _token = token['id_token'];
     if (_token != '') {
       DatabaseServices.db.token(_token);
