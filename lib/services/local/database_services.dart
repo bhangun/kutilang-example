@@ -24,23 +24,25 @@ class DatabaseServices {
   // Singleton accessor
   static DatabaseServices get db => _singleton;
 
-  Future<int> token(String token) async {
-    print('>>>>>>>>>>>>>>>>>>'+ token);
-    //return await insert(AppData(id:'id_token',title: 'token',message: token));
-    return await _appsStore.add(await _db, {'id_token': token});
+  token(String token) async {
+    await _appsStore.record(0).add(await _db, {'id_token': token});
   }
 
   Future<int> deleteToken() async {
-    final finder = Finder(filter: Filter.byKey('id_token'));
+    final finder = Finder(filter: Filter.byKey(0));
     return (await _appsStore.delete(await _db, finder: finder));
-    //return await insert(AppData(id:'id_token',title: 'token',message: token));
   }
 
   Future<String> fetchToken() async {
-    //final finder = Finder(filter: Filter.byKey(key));
-    Future<Map<String, Object?>> token = fetch('id_token');
-    print('++++++++++>'+ token.toString());
-    return '';
+    final finder = Finder(filter: Filter.byKey(0));
+    Map<String, Object?> value = {'id_token': ''};
+    try {
+      var v = (await _appsStore.find(await _db, finder: finder)).first;
+      value = v.value;
+    } catch (e) {
+      //FLog.info(text: '++++++++++>' + value.toString());
+    }
+    return value['id_token'].toString();
   }
 
   // DB functions:--------------------------------------------------------------

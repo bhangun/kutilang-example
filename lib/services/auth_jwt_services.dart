@@ -48,6 +48,11 @@ class AuthServices {
     return result;
   }
 
+  static Future<String> fetchToken() async {
+    String token= await DatabaseServices.db.fetchToken();
+    return token;
+  }
+
   static void logout() {
     FLog.debug(text: 'logout');
    // AppStorage.delete(AUTH_TOKEN);
