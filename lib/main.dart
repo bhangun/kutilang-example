@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kutilang_example/bloc/app_bloc/app_state.dart';
 import 'bloc/app_bloc/app_bloc.dart';
-import 'bloc/auth_bloc/auth.dart';
+import 'bloc/auth_bloc/auth_bloc.dart';
 import 'bloc/locale_cubit.dart';
 import 'generated/localization.dart';
 import 'observer.dart';

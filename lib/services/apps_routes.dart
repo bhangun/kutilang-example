@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/about.dart';
 import '../pages/home.dart';
 import '../pages/login.dart';
 import '../pages/splash.dart';
@@ -9,11 +10,12 @@ class AppsRoutes {
   static const String splash = '/splash';
   static const String login = '/login';
   static const String home = '/home';
-  static const String takeCamera = '/takeCamera';
+  static const String about = '/about';
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
     login: (BuildContext context) => LoginScreen(),
     home: (BuildContext context) => HomeScreen(),
+    about: (BuildContext context) => AboutScreen(),
   };
 }

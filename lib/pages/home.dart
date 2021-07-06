@@ -4,9 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
 import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
 
 // import '../bloc/authentication/authentication_bloc.dart';
@@ -21,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _Homepagestate extends State<HomeScreen> {
   final _homeKey = GlobalKey<ScaffoldState>();
 
-    ConnectivityResult _connectionStatus = ConnectivityResult.none;
+   // ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   bool _isConnected = false;

@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'auth_bloc.dart';
 
 enum AuthStatus { initialize, authenticated, processing, unauthenticated, failure }
 

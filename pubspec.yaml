@@ -73,10 +73,16 @@ dependencies:
 
   flutter_slidable: ^0.6.0-nullsafety.0
 
+  
   built_value: ^8.0.2
+
+  # plugin provides an API for querying information about an application package.
+  package_info_plus: ^1.0.3
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
   test: any 
   build_runner: ^2.0.4

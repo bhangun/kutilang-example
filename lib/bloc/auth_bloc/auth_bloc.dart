@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:f_logs/f_logs.dart';
 import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/services/auth_jwt_services.dart';
 import 'package:kutilang_example/services/navigation.dart';
 
-import 'auth_event.dart';
-import 'auth_state.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthState? state) : super(state!);
@@ -54,8 +55,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield (await processingLogin())
           ? AuthState.authenticated()
           : AuthState.unauthenticated();
-        //  AuthServices.login(username, password, rememberMe).then((value) => value? gotoHome():'');
-     //processingLogin();
+      //  AuthServices.login(username, password, rememberMe).then((value) => value? gotoHome():'');
+      //processingLogin();
       //await gotoHome();
     }
 
@@ -86,13 +87,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<bool> processingLogin() async {
     var v = false;
     FLog.info(text: 'Processing login!');
-   // bool v = await AuthServices.login(username, password, rememberMe);
+    // bool v = await AuthServices.login(username, password, rememberMe);
     // if(v)NavigationServices.navigateTo(AppsRoutes.home);
-    AuthServices.login(username, password, rememberMe).then((value) => v = value);
-    FLog.info(text: '>>>>>>>>' + v.toString());
+    //AuthServices.login(username, password, rememberMe).then((value) => v = value);
+    var data = await AuthServices.login(
+        username, password, rememberMe); //.then((value) => v = value);
+    FLog.info(text: '>>>>>>>>' + data.toString());
+    if (data) NavigationServices.navigateTo(AppsRoutes.home);
 
-    
-    return v;
+    return data;
   }
 
   void setUserId(String value) {
@@ -161,7 +164,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //prefs(TOKEN).then((v)=> _isTrue=v.isNotEmpty);
     return _isTrue;
   }
-
 
   Future register() async {
     loading = true;

@@ -13,13 +13,14 @@ class RestServices {
     ..interceptors.clear()
     ..interceptors.add(LogInterceptor(
         requestBody: true,
-        request: false,
-        requestHeader: false,
+        request: true,
+        requestHeader: true,
         responseHeader: true,
         responseBody: true))
     ..interceptors.add(InterceptorsWrapper(
         onRequest: (RequestOptions options,
             RequestInterceptorHandler requestHandler) async {
+          FLog.info(text: options.baseUrl.toString());
           try {
             String token = (await AuthServices.fetchToken());
             if (token != '') {
@@ -31,7 +32,9 @@ class RestServices {
         },
         onResponse:
             (Response<dynamic> e, ResponseInterceptorHandler responseHandler) =>
-                {FLog.info(text: e.toString())},
+                {FLog.info(text: '+++++++++++++++++++++++')
+                  //FLog.info(text: e.toString());
+                  },
         onError: (DioError error, ErrorInterceptorHandler errorHandler) async {
           FLog.info(text: DioErrorUtil.handleError(error));
           // Do something with response error
@@ -46,7 +49,7 @@ class RestServices {
   // Get:-----------------------------------------------------------------------
   static Future<dynamic> fetch(String uri) async {
     try {
-      final Response response = await _dio.get(uri);
+      Response response = await _dio.get(uri);
       return response.data;
     } catch (e) {
       FLog.error(text: e.toString());
@@ -56,15 +59,18 @@ class RestServices {
 
   // Post:----------------------------------------------------------------------
   static Future<dynamic> post(String uri, dynamic data) async {
-    final Response response = await _dio.post(uri, data: data);
-    FLog.info(text: uri + response.data);
+    FLog.info(text: uri + data);
+    _dio.post(uri, data: data).then((value) => print(value.data.toString()));
+
+    Response response = await _dio.post(uri, data: data);
+    FLog.info(text: response.data.toString());
     return response.data;
   }
 
   // Post:----------------------------------------------------------------------
   static Future<dynamic> delete(String uri, dynamic id) async {
     try {
-      final Response response = await _dio.delete(uri, data: id);
+      Response response = await _dio.delete(uri, data: id);
       return response.data;
     } catch (e) {
       FLog.error(text: e.toString());
@@ -75,7 +81,7 @@ class RestServices {
   // Post:----------------------------------------------------------------------
   static Future<dynamic> put(String uri, dynamic data) async {
     try {
-      final Response response = await _dio.put(uri, data: data);
+      Response response = await _dio.put(uri, data: data);
       return response.data;
     } catch (e) {
       // FLog.error(text: e.toString());

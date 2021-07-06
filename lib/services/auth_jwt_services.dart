@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
+import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
 
 //import '../utils/config.dart';
 import 'local/database_services.dart';
@@ -10,7 +10,6 @@ import 'local/database_services.dart';
 import 'network/rest_services.dart';
 
 class AuthServices {
-
   static var _controller = StreamController<AuthStatus>();
 
   Stream<AuthStatus> get status async* {
@@ -19,7 +18,6 @@ class AuthServices {
     yield* _controller.stream;
   }
 
-  
   /// Path authenticate,
   /// Post authorize & Get isAuthorize
   static Future<bool> login(String _username, String _password,
@@ -30,33 +28,46 @@ class AuthServices {
       "rememberMe": _rememberMe
     });
 
-    
+    FLog.info(text: '<><><>><><><1><><>><><><');
     bool result = false;
-    try {
-      await RestServices.post('authenticate', body).then((d) => _saveToken(d),
+    // try {
+    FLog.info(text: '<><><>><><><1><1><>><><><');
+
+    /*  RestServices.post('authenticate', body).then((d) => _saveToken(d),
           onError: (e) => {FLog.info(text: e.toString())});
-      /* if (await DatabaseServices.db.fetchToken()!='') {
+ */
+
+    var data = await RestServices.post('authenticate', body);
+    FLog.info(text: data.toString());
+    return _saveToken(data);
+    //  return true;
+    //   FLog.info(text: '<><><>><><><2><><>><><><');
+
+    /* if (await DatabaseServices.db.fetchToken()!='') {
         //result = true;
         _controller.add(AuthStatus.authenticated);
         FLog.info(text: "Token saved!");
       } */
-    } catch (e) {
+    /*  } catch (e) {
+      FLog.info(text: '<><><>><><><3><><>><><><');
       result = true;
 
       FLog.error(text: e.toString());
-    }
-    return result;
+    } */
+    //FLog.info(text: '<><><>><><><4><><>><><><');
+    //_controller.close();
+    // return result;
   }
 
   static Future<String> fetchToken() async {
-    String token= await DatabaseServices.db.fetchToken();
+    String token = await DatabaseServices.db.fetchToken();
     return token;
   }
 
   static void logout() {
     FLog.debug(text: 'logout');
-   // AppStorage.delete(AUTH_TOKEN);
-   DatabaseServices.db.deleteToken();
+    // AppStorage.delete(AUTH_TOKEN);
+    DatabaseServices.db.deleteToken();
   }
 
   static bool _saveToken(token) {

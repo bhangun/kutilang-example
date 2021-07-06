@@ -2,17 +2,15 @@ import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth.dart';
 
 import 'package:kutilang_example/bloc/auth_bloc/auth_bloc.dart';
-import 'package:kutilang_example/bloc/auth_bloc/auth_event.dart';
 import 'package:kutilang_example/bloc/locale_cubit.dart';
 
 import 'package:kutilang_example/generated/localization.dart';
 import 'package:kutilang_example/layout/mobile.dart';
 import 'package:kutilang_example/bloc/theme_cubit.dart';
 import 'package:kutilang_example/modules/kojek/ko_routes.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
+//import 'package:kutilang_example/services/apps_routes.dart';
 import 'package:kutilang_example/services/navigation.dart';
 
 import '../utils/config.dart';
@@ -64,17 +62,20 @@ class _Loginpagestate extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+   /*  return BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          FLog.info(text: state.toString());
+          FLog.info(text: state.status.toString());
           if (state.isAuthenticated) {
             NavigationServices.navigateTo(AppsRoutes.home);
           } else if (state.failure)
             _showModal('failure');
           else
             _showModal('wrong');
-        },
-        child: Scaffold(
+        }, */
+       return BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+        FLog.info(text: '>>>>>>>'+state.status.toString());
+        return Scaffold(
             primary: true,
             appBar: AppBar(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -99,7 +100,11 @@ class _Loginpagestate extends State<LoginScreen> {
                       icon: Icon(Icons.flag),
                       onPressed: () => _showLocales()),
                 ]),
-            body: _body(context)));
+            body: _body(context)
+            )
+            ;
+        }
+            );
   }
 
   Material _body(BuildContext context) {

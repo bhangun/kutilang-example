@@ -104,7 +104,7 @@ class _KoMainState extends State<KoMain> with SingleTickerProviderStateMixin {
                         ),
                       ],
                       borderRadius: _borderRadius()),
-                  child: Scaffold(body:_bottomRowBtn())));
+                  child: Scaffold(body: _bottomRowBtn())));
         });
   }
 
